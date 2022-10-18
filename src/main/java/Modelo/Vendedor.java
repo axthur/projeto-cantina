@@ -23,7 +23,7 @@ public class Vendedor {
         this.telefone = "";
         this.email = "";
         this.endereco = "";
-        this.cargaHoraria = "";
+        this.cargaHoraria = -1;
     }
 
     public int getCodigo() {
@@ -72,6 +72,5 @@ public class Vendedor {
 
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-    
+    } 
 }
