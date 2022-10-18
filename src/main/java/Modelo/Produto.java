@@ -17,7 +17,7 @@ public class Produto {
     private double preco;
     private int estoque;
 
-    public Produto {
+    public Produto(){
         this.id = -1;
         this.nome = "";
         this.tipo = "";
