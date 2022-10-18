@@ -18,7 +18,7 @@ public class Venda {
     private String dataPagamento;
     private String metodoDePagamento;
 
-    public Venda {
+    public Venda(){
         this.id = -1;
         this.idCliente = "";
         this.idVendedor = "";
