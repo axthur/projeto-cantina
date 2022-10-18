@@ -19,7 +19,7 @@ public class Cliente {
     private String endereco;
     private String curso;
 
-    public Cliente {
+    public Cliente(){
         this.id = -1;
         this.nome = "";
         this.telefone = "";
