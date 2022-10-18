@@ -20,9 +20,9 @@ public class Venda {
 
     public Venda(){
         this.id = -1;
-        this.idCliente = "";
-        this.idVendedor = "";
-        this.valor = "";
+        this.idCliente = -1;
+        this.idVendedor = -1;
+        this.valor = -1;
         this.dataCompra = "";
         this.dataPagamento = "";
         this.metodoDePagamento = "";
