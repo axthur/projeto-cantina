@@ -1,5 +1,6 @@
 package Controle;
 
+import Modelo.Cliente;
 import java.util.ArrayList;
 
 /*
