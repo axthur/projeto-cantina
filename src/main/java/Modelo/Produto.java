@@ -22,8 +22,8 @@ public class Produto {
         this.nome = "";
         this.tipo = "";
         this.descricao = "";
-        this.preco = "";
-        this.estoque = "";
+        this.preco = -1;
+        this.estoque = -1;
     }
 
     public int getCodigo() {
