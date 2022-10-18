@@ -1,9 +1,8 @@
-package Modelo;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package Modelo;
 
 /**
  *
@@ -19,11 +18,11 @@ public class ItensVenda {
 
     public ItensVenda(){
         this.id = -1;
-        this.idVenda = "";
-        this.idProduto = "";
-        this.quantidade = "";
-        this.valorUnitario = "";
-        this.valorTotal = "";
+        this.idVenda = -1;
+        this.idProduto = -1;
+        this.quantidade = -1;
+        this.valorUnitario = -1;
+        this.valorTotal = -1;
     }
 
     public int getCodigo() {
