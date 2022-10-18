@@ -17,7 +17,7 @@ public class Vendedor {
     private String endereco;
     private int cargaHoraria;
 
-    public Vendedor {
+    public Vendedor(){
         this.id = -1;
         this.nome = "";
         this.telefone = "";
