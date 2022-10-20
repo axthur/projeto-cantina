@@ -3,16 +3,6 @@ package Controle;
 import Modelo.Produto;
 import java.util.ArrayList;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.ctrlCliente to edit this template
- */
-
-
-/**
- *
- * @author arthu
- */
 public class ctrlProduto {
     private final Produto objCliente;
     
