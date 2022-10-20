@@ -1,5 +1,7 @@
 package Modelo;
 
+import DAO.VendedorDAO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -73,4 +75,21 @@ public class Vendedor {
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     } 
+    public void setProximoCodigo(){
+        this.id = VendedorDAO.ProximoCodigo();
+    }
+    
+    public void Salvar(){
+        VendedorDAO.Salvar(this);
+    }
+    
+    public void RecuperaObjeto(int Codigo){
+        Vendedor vendedorTemp = VendedorDAO.RecuperarVendedor(Codigo);
+        this.setCodigo(vendedorTemp.getCodigo());
+        this.setNome(vendedorTemp.getNome());
+        this.setTelefone(vendedorTemp.getTelefone());
+        this.setEmail(vendedorTemp.getEmail());
+        this.setEndereco(vendedorTemp.getEndereco());
+        this.setCargaHoraria(vendedorTemp.getCargaHoraria());
+    }
 }
