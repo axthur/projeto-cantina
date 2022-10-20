@@ -85,4 +85,8 @@ public class Cliente {
         this.setCurso(clienteTemp.getCurso());
     }
     
+    public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
+        int CodigoNav = ClienteDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
+        RecuperaObjeto(CodigoNav);
+    }
 }
