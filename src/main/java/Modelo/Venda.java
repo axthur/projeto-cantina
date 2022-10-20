@@ -1,14 +1,7 @@
 package Modelo;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import DAO.VendaDAO;
 
-/**
- *
- * @author arthu
- */
 public class Venda {
     private int id;
     private int idCliente;
@@ -82,5 +75,23 @@ public class Venda {
 
     public void setMetodoDePagamento(String metodoDePagamento) {
         this.metodoDePagamento = metodoDePagamento;
+    }
+    public void setProximoCodigo(){
+        this.id = VendaDAO.ProximoCodigo();
+    }
+    
+    public void Salvar(){
+        VendaDAO.Salvar(this);
+    }
+    
+    public void RecuperaObjeto(int Codigo){
+        Venda vendaTemp = VendaDAO.RecuperarVenda(Codigo);
+        this.setCodigo(vendaTemp.getCodigo());
+        this.setIdCliente(vendaTemp.getIdCliente());
+        this.setIdVendedor(vendaTemp.getIdVendedor());
+        this.setValor(vendaTemp.getValor());
+        this.setDataCompra(vendaTemp.getDataCompra());
+        this.setDataPagamento(vendaTemp.getDataPagamento());
+        this.setMetodoDePagamento(vendaTemp.getMetodoDePagamento());
     }
 }
