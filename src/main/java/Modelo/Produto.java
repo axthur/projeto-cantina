@@ -1,5 +1,7 @@
 package Modelo;
 
+import DAO.ProdutoDAO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -73,4 +75,24 @@ public class Produto {
     public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
+
+ public void setProximoCodigo(){
+        this.id = ProdutoDAO.ProximoCodigo();
+    }
+    
+    public void Salvar(){
+        ProdutoDAO.Salvar(this);
+    }
+    
+    public void RecuperaObjeto(int Codigo){
+        Produto clienteTemp = ProdutoDAO.RecuperarProduto(Codigo);
+        this.setCodigo(clienteTemp.getCodigo());
+        this.setNome(clienteTemp.getNome());
+        this.setTipo(clienteTemp.getTipo());
+        this.setDescricao(clienteTemp.getDescricao());
+        this.setPreco(clienteTemp.getPreco());
+        this.setEstoque(clienteTemp.getEstoque());
+    }
+    
 }
+
