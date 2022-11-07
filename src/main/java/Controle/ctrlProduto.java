@@ -4,39 +4,44 @@ import Modelo.Produto;
 import java.util.ArrayList;
 
 public class ctrlProduto {
-    private final Produto objCliente;
+    private final Produto objProduto;
     
     public ctrlProduto(){
-        this.objCliente = new Produto();
+        this.objProduto = new Produto();
     }
     
     public int Salvar(ArrayList<String> pLista){
-        this.objCliente.setNome(pLista.get(1));
-        this.objCliente.setCodigo(Integer.valueOf(pLista.get(2)));
-        this.objCliente.setTipo(pLista.get(3));
-        this.objCliente.setDescricao(pLista.get(4));
-        this.objCliente.setPreco(Double.valueOf(pLista.get(5)));  
-         this.objCliente.setEstoque(Integer.valueOf(pLista.get(6)));  
-        this.objCliente.setProximoCodigo();
-        this.objCliente.Salvar();
-        return this.objCliente.getCodigo();
+        this.objProduto.setNome(pLista.get(1));
+        this.objProduto.setCodigo(Integer.valueOf(pLista.get(2)));
+        this.objProduto.setTipo(pLista.get(3));
+        this.objProduto.setDescricao(pLista.get(4));
+        this.objProduto.setPreco(Double.valueOf(pLista.get(5)));  
+        this.objProduto.setEstoque(Integer.valueOf(pLista.get(6)));  
+        this.objProduto.setProximoCodigo();
+        this.objProduto.Salvar();
+        return this.objProduto.getCodigo();
     }
     
     public ArrayList<String> ConverterObjetoParaArray(){
         ArrayList<String> vetCampos = new ArrayList<>();
-        vetCampos.add(String.valueOf(this.objCliente.getCodigo()));
-        vetCampos.add(this.objCliente.getNome());
-        vetCampos.add(String.valueOf(this.objCliente.getCodigo()));
-        vetCampos.add(this.objCliente.getTipo());
-        vetCampos.add(this.objCliente.getDescricao());
-        vetCampos.add(String.valueOf(this.objCliente.getPreco()));
-        vetCampos.add(String.valueOf(this.objCliente.getEstoque()));
+        vetCampos.add(String.valueOf(this.objProduto.getCodigo()));
+        vetCampos.add(this.objProduto.getNome());
+        vetCampos.add(String.valueOf(this.objProduto.getCodigo()));
+        vetCampos.add(this.objProduto.getTipo());
+        vetCampos.add(this.objProduto.getDescricao());
+        vetCampos.add(String.valueOf(this.objProduto.getPreco()));
+        vetCampos.add(String.valueOf(this.objProduto.getEstoque()));
                 
         return vetCampos;
     }
     
     public ArrayList<String> RecuperaObjeto(int Codigo){
-        this.objCliente.RecuperaObjeto(Codigo);
+        this.objProduto.RecuperaObjeto(Codigo);
+        return ConverterObjetoParaArray();
+    }
+    
+    public ArrayList<String> RecuperaObjetoNavegacao(int Opcao, int Codigo){
+        this.objProduto.RecuperaObjetoNavegacao(Opcao, Codigo);
         return ConverterObjetoParaArray();
     }
 }
