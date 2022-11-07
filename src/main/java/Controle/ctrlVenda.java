@@ -40,4 +40,9 @@ public class ctrlVenda {
         this.objVenda.RecuperaObjeto(Codigo);
         return ConverterObjetoParaArray();
     }
+    
+     public ArrayList<String> RecuperaObjetoNavegacao(int Opcao, int Codigo){
+        this.objVenda.RecuperaObjetoNavegacao(Opcao, Codigo);
+        return ConverterObjetoParaArray();
+    }
 }
