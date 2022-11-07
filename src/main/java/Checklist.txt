@@ -1,0 +1,20 @@
+CONTROLE
+Add RecuperaObjetoNavegacao()
+(X) Cliente
+( ) Produto
+( ) Venda
+( ) Vendedor
+
+DAO
+Add PegaCodigoPelaNavegacao()
+(X) Cliente
+( ) Produto
+( ) Venda
+( ) Vendedor
+
+MODELO
+Add RecuperaObjetoNavegacao()
+(X) Cliente
+( ) Produto
+( ) Venda
+( ) Vendedor
