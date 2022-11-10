@@ -84,6 +84,8 @@ public class Produto {
         this.setPreco(clienteTemp.getPreco());
         this.setEstoque(clienteTemp.getEstoque());
     }
-    
+    public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
+        int CodigoNav = ProdutoDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
+        RecuperaObjeto(CodigoNav);
+    }
 }
-
