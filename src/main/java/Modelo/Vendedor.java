@@ -83,4 +83,9 @@ public class Vendedor {
         this.setEndereco(vendedorTemp.getEndereco());
         this.setCargaHoraria(vendedorTemp.getCargaHoraria());
     }
+    
+    public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
+        int CodigoNav = VendedorDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
+        RecuperaObjeto(CodigoNav);
+    }
 }
