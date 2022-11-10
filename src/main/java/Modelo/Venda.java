@@ -94,4 +94,9 @@ public class Venda {
         this.setDataPagamento(vendaTemp.getDataPagamento());
         this.setMetodoDePagamento(vendaTemp.getMetodoDePagamento());
     }
+    
+    public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
+        int CodigoNav = VendaDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
+        RecuperaObjeto(CodigoNav);
+    }
 }
