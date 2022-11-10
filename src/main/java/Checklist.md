@@ -61,7 +61,7 @@
     - [ ] CadProduto
     - [ ] CadVenda
     - [ ] CadVendedor
-   - [ ] Excluir()
+  - [ ] Excluir()
     - [ ] CadCliente
     - [ ] CadProduto
     - [ ] CadVenda
