@@ -171,9 +171,9 @@ public class ClienteDAO {
             atualizaSt = conexao.prepareStatement(sql);
             atualizaSt.setString(1, cliente.getNome());
             atualizaSt.setString(2, cliente.getTelefone());
-            atualizaSt.setString(3, cidade.getEmail());
-            atualizaSt.setString(4, cidade.getEndereco());
-            atualizaSt.setString(5, cidade.getCurso());
+            atualizaSt.setString(3, cliente.getEmail());
+            atualizaSt.setString(4, cliente.getEndereco());
+            atualizaSt.setString(5, cliente.getCurso());
             atualizaSt.setInt(6, cidade.getCodigo());
             atualizaSt.executeUpdate();            
         } catch (SQLException e) {
