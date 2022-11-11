@@ -44,4 +44,20 @@ public class ctrlProduto {
         this.objProduto.RecuperaObjetoNavegacao(Opcao, Codigo);
         return ConverterObjetoParaArray();
     }
+    
+    public void Atualizar(ArrayList<String> pLista){
+        this.objProduto.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objProduto.setNome(pLista.get(1));
+        this.objProduto.setTipo(pLista.get(2));
+        this.objProduto.setDescricao(pLista.get(3));
+        this.objProduto.setPreco(Double.valueOf(pLista.get(4)));
+        this.objProduto.setEstoque(Integer.valueOf(pLista.get(5)));
+        
+        this.objProduto.Atualizar();
+    }
+    
+    public void Excluir(int Chave){
+        this.objProduto.setCodigo(Chave);
+        this.objProduto.Excluir(Chave);
+    }
 }
