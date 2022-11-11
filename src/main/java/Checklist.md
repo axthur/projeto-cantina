@@ -6,17 +6,9 @@
 - [X] Implementar método Excluir()
 
 ## CONTROLE
-- [ ] Implementar método Atualizar()
-  - [ ] Cliente
-  - [ ] Produto
-  - [ ] Venda
-  - [ ] Vendedor
+- [X] Implementar método Atualizar()
 
-- [ ] Implementar método Excluir()
-  - [ ] Cliente
-  - [ ] Produto
-  - [ ] Venda
-  - [ ] Vendedor
+- [X] Implementar método Excluir()
 
 ## MODELO
 - [ ] Implementar método Atualizar()
