@@ -74,6 +74,14 @@ public class Vendedor {
         VendedorDAO.Salvar(this);
     }
     
+    public void Atualizar(){
+        VendedorDAO.Atualizar(this);
+    }
+    
+    public void Excluir(int Chave){
+        VendedorDAO.Excluir(Chave);
+    }
+    
     public void RecuperaObjeto(int Codigo){
         Vendedor vendedorTemp = VendedorDAO.RecuperarVendedor(Codigo);
         this.setCodigo(vendedorTemp.getCodigo());
