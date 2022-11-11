@@ -2,7 +2,7 @@
 
 ## DAO
 - [ ] Implementar método Atualizar()
-  - [ ] Cliente
+  - [X] Cliente
   - [ ] Produto
   - [ ] Venda
   - [ ] Vendedor
