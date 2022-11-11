@@ -157,4 +157,57 @@ public class VendedorDAO {
         
         return vendedorRecuperado;
     }
+    
+    //Atualizar(): ALTERA O REGISTRO NO BANCO DE DADOS
+    public static void Atualizar(Vendedor vendedor){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        PreparedStatement atualizaSt = null;
+        
+        String sql = "update vendedor set NOME = ?, TELEFONE = ?, EMAIL = ?, ENDERECO = ?, CARGA_HORARIA = ? where ID = ?";
+        
+        try {
+            atualizaSt = conexao.prepareStatement(sql);
+            atualizaSt.setString(1, vendedor.getNome());
+            atualizaSt.setString(2, vendedor.getTelefone());
+            atualizaSt.setString(3, vendedor.getEmail());
+            atualizaSt.setString(4, vendedor.getEndereco());
+            atualizaSt.setInt(5, vendedor.getCargaHoraria());
+            atualizaSt.setInt(6, vendedor.getCodigo());
+            atualizaSt.executeUpdate();            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor: " + e.getMessage());
+        } finally {
+            try {
+                atualizaSt.close();
+                conexao.close(); 
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Atualizar(): " + e.getMessage());
+            }
+        }
+    }
+    
+    //Excluir(): EXCLUI UM REGISTRO DO BANCO DE DADOS
+    public static void Excluir(int iCod){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        PreparedStatement excluiSt = null;
+        
+        String sql = "delete from vendedor where ID = " + iCod;
+        
+        try {
+            excluiSt = conexao.prepareStatement(sql);
+            excluiSt.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir vendedor: " + e.getMessage());
+        } finally {
+            try {
+                excluiSt.close();
+                conexao.close(); 
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Excluir(): " + e.getMessage());
+            }
+        }
+    }
+}
 }
