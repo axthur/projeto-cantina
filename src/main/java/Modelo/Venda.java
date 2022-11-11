@@ -84,6 +84,14 @@ public class Venda {
         VendaDAO.Salvar(this);
     }
     
+    public void Atualizar(){
+        VendaDAO.Atualizar(this);
+    }
+    
+    public void Excluir(int Chave){
+        VendaDAO.Excluir(Chave);
+    }
+    
     public void RecuperaObjeto(int Codigo){
         Venda vendaTemp = VendaDAO.RecuperarVenda(Codigo);
         this.setCodigo(vendaTemp.getCodigo());
