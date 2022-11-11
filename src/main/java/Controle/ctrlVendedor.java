@@ -42,4 +42,20 @@ public class ctrlVendedor {
         this.objVendedor.RecuperaObjetoNavegacao(Opcao, Codigo);
         return ConverterObjetoParaArray();
     }
+    
+    public void Atualizar(ArrayList<String> pLista){
+        this.objVendedor.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objVendedor.setNome(pLista.get(1));
+        this.objVendedor.setTelefone(pLista.get(2));
+        this.objVendedor.setEmail(pLista.get(3));
+        this.objVendedor.setEndereco(pLista.get(4));
+        this.objVendedor.setCargaHoraria(Integer.valueOf(pLista.get(5)));
+        
+        this.objVendedor.Atualizar();
+    }
+    
+    public void Excluir(int Chave){
+        this.objVendedor.setCodigo(Chave);
+        this.objVendedor.Excluir(Chave);
+    }
 }
