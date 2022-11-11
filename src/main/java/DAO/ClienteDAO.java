@@ -174,7 +174,7 @@ public class ClienteDAO {
             atualizaSt.setString(3, cliente.getEmail());
             atualizaSt.setString(4, cliente.getEndereco());
             atualizaSt.setString(5, cliente.getCurso());
-            atualizaSt.setInt(6, cidade.getCodigo());
+            atualizaSt.setInt(6, cliente.getCodigo());
             atualizaSt.executeUpdate();            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar cliente: " + e.getMessage());
