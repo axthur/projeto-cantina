@@ -75,6 +75,15 @@ public class Cliente {
         ClienteDAO.Salvar(this);
     }
     
+    public void Atualizar(){
+        ClienteDAO.Atualizar(this);
+    }
+    
+    public void Excluir(int Chave){
+        ClienteDAO.Excluir(Chave);
+    }
+    
+    
     public void RecuperaObjeto(int Codigo){
         Cliente clienteTemp = ClienteDAO.RecuperarCliente(Codigo);
         this.setCodigo(clienteTemp.getCodigo());
