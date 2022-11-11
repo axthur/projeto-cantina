@@ -175,7 +175,7 @@ public class VendaDAO {
             atualizaSt.setDouble(3, venda.getValor());
             atualizaSt.setString(4, venda.getDataCompra());
             atualizaSt.setString(5, venda.getDataPagamento());
-            atualizaSt.setString(6, venda.getMetodoPagamento());
+            atualizaSt.setString(6, venda.getMetodoDePagamento());
             atualizaSt.setInt(7, venda.getCodigo());
             atualizaSt.executeUpdate();            
         } catch (SQLException e) {
