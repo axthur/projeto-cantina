@@ -32,11 +32,11 @@ public class vPrincipal extends javax.swing.JFrame {
         jColorChooser1 = new javax.swing.JColorChooser();
         jColorChooser2 = new javax.swing.JColorChooser();
         menuPrincipal = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuCadastro = new javax.swing.JMenu();
+        jMenuItemVendedor = new javax.swing.JMenuItem();
+        jMenuItemCliente = new javax.swing.JMenuItem();
+        jMenuItemProduto = new javax.swing.JMenuItem();
+        jMenuRegistrarVenda = new javax.swing.JMenu();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -46,41 +46,41 @@ public class vPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Cadastro");
+        jMenuCadastro.setText("Cadastro");
 
-        jMenuItem1.setText("Vendedor");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemVendedor.setText("Vendedor");
+        jMenuItemVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemVendedorActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuCadastro.add(jMenuItemVendedor);
 
-        jMenuItem2.setText("Cliente");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCliente.setText("Cliente");
+        jMenuItemCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenuCadastro.add(jMenuItemCliente);
 
-        jMenuItem3.setText("Produto");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemProduto.setText("Produto");
+        jMenuItemProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItemProdutoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenuCadastro.add(jMenuItemProduto);
 
-        menuPrincipal.add(jMenu1);
+        menuPrincipal.add(jMenuCadastro);
 
-        jMenu2.setText("Registrar Venda");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuRegistrarVenda.setText("Registrar Venda");
+        jMenuRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
+                jMenuRegistrarVendaActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jMenu2);
+        menuPrincipal.add(jMenuRegistrarVenda);
 
         setJMenuBar(menuPrincipal);
 
@@ -98,21 +98,21 @@ public class vPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+    private void jMenuRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegistrarVendaActionPerformed
         new vCadVenda(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenu2ActionPerformed
+    }//GEN-LAST:event_jMenuRegistrarVendaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedorActionPerformed
         new vCadVendedor(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemVendedorActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteActionPerformed
         new vCadCliente(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemClienteActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutoActionPerformed
         new vCadProduto(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,14 +152,14 @@ public class vPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JColorChooser jColorChooser2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenuItem jMenuItemCliente;
+    private javax.swing.JMenuItem jMenuItemProduto;
+    private javax.swing.JMenuItem jMenuItemVendedor;
+    private javax.swing.JMenu jMenuRegistrarVenda;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 }
