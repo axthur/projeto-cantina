@@ -6,11 +6,6 @@
 - [X] Implementar método Excluir()
 
 ## CONTROLE
-- [X] Implementar método Atualizar()
-
-- [X] Implementar método Excluir()
-
-## MODELO
 - [ ] Implementar método Atualizar()
   - [ ] Cliente
   - [ ] Produto
@@ -22,6 +17,11 @@
   - [ ] Produto
   - [ ] Venda
   - [ ] Vendedor
+
+## MODELO
+- [X] Implementar método Atualizar()
+
+- [X] Implementar método Excluir()
 
 ## VISAO
 - [ ] Configurar telas de diálogo
