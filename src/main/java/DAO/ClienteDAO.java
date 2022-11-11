@@ -194,7 +194,7 @@ public class ClienteDAO {
         
         PreparedStatement excluiSt = null;
         
-        String sql = "delete from CLIENTE where codigo = " + iCod;
+        String sql = "delete from CLIENTE where ID = " + iCod;
         
         try {
             excluiSt = conexao.prepareStatement(sql);
