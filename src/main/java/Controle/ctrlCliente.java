@@ -48,8 +48,8 @@ public class ctrlCliente {
         this.objCliente.setNome(pLista.get(1));
         this.objCliente.setTelefone(pLista.get(2));
         this.objCliente.setEmail(pLista.get(3));
-        this.objCliente.setEndereco(pLista.get(4);
-        this.objCliente.setCurso(pLista.get(5);
+        this.objCliente.setEndereco(pLista.get(4));
+        this.objCliente.setCurso(pLista.get(5));
         
         this.objCliente.Atualizar();
     }
