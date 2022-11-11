@@ -1,19 +1,13 @@
 ### Projeto Exemplo: https://github.com/felippefaeda/ProjetoMVC
 
 ## DAO
-- [X] Implementar método Atualizar()
-
-- [X] Implementar método Excluir()
+- Vazio.
 
 ## CONTROLE
-- [X] Implementar método Atualizar()
-
-- [X] Implementar método Excluir()
+- Vazio.
 
 ## MODELO
-- [X] Implementar método Atualizar()
-
-- [X] Implementar método Excluir()
+- Vazio.
 
 ## VISAO
 - [ ] Configurar telas de diálogo
