@@ -75,6 +75,15 @@ public class Produto {
         ProdutoDAO.Salvar(this);
     }
     
+    public void Atualizar(){
+        ProdutoDAO.Atualizar(this);
+    }
+    
+    public void Excluir(int Chave){
+        ProdutoDAO.Excluir(Chave);
+    }
+    
+    
     public void RecuperaObjeto(int Codigo){
         Produto clienteTemp = ProdutoDAO.RecuperarProduto(Codigo);
         this.setCodigo(clienteTemp.getCodigo());
