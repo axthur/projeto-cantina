@@ -45,4 +45,21 @@ public class ctrlVenda {
         this.objVenda.RecuperaObjetoNavegacao(Opcao, Codigo);
         return ConverterObjetoParaArray();
     }
+    
+    public void Atualizar(ArrayList<String> pLista){
+        this.objVenda.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objVenda.setIdCliente(Integer.valueOf(pLista.get(1)));
+        this.objVenda.setIdVendedor(Integer.valueOf(pLista.get(2)));
+        this.objVenda.setValor(Double.valueOf(pLista.get(3)));
+        this.objVenda.setDataCompra(pLista.get(4));
+        this.objVenda.setDataPagamento(pLista.get(5));
+        this.objVenda.setMetodoDePagamento(pLista.get(6));
+        
+        this.objVenda.Atualizar();
+    }
+    
+    public void Excluir(int Chave){
+        this.objVenda.setCodigo(Chave);
+        this.objVenda.Excluir(Chave);
+    }
 }
