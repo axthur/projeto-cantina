@@ -42,4 +42,20 @@ public class ctrlCliente {
         this.objCliente.RecuperaObjetoNavegacao(Opcao, Codigo);
         return ConverterObjetoParaArray();
     }
+    
+    public void Atualizar(ArrayList<String> pLista){
+        this.objCliente.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objCliente.setNome(pLista.get(1));
+        this.objCliente.setTelefone(pLista.get(2));
+        this.objCliente.setEmail(pLista.get(3));
+        this.objCliente.setEndereco(pLista.get(4);
+        this.objCliente.setCurso(pLista.get(5);
+        
+        this.objCliente.Atualizar();
+    }
+    
+    public void Excluir(int Chave){
+        this.objCliente.setCodigo(Chave);
+        this.objCliente.Excluir(Chave);
+    }
 }
