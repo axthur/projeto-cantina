@@ -1,13 +1,13 @@
 ### Projeto Exemplo: https://github.com/felippefaeda/ProjetoMVC
 
 ## DAO
-- Vazio.
+- [X] Vazio.
 
 ## CONTROLE
-- Vazio.
+- [X] Vazio.
 
 ## MODELO
-- Vazio.
+- [X] Vazio.
 
 ## VISAO
 - [ ] Configurar telas de diálogo
