@@ -9,6 +9,7 @@ public class Vendedor {
     private String email;
     private String endereco;
     private int cargaHoraria;
+    private String senha;
 
     public Vendedor(){
         this.id = -1;
@@ -17,6 +18,23 @@ public class Vendedor {
         this.email = "";
         this.endereco = "";
         this.cargaHoraria = -1;
+        this.senha = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public int getCodigo() {

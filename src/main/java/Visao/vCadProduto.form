@@ -12,6 +12,21 @@
         <Property name="label" type="java.lang.String" value="Cancelar"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -51,7 +66,7 @@
               <Component id="panel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="116" max="32767" attributes="0"/>
           </Group>
-          <Component id="navegacao" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnlNavegacao" alignment="0" max="32767" attributes="0"/>
           <Component id="botao" max="32767" attributes="0"/>
           <Component id="conteudo" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -59,7 +74,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="navegacao" min="-2" max="-2" attributes="0"/>
+              <Component id="pnlNavegacao" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Component id="conteudo" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -90,7 +105,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
     </Container>
-    <Container class="java.awt.Panel" name="navegacao">
+    <Container class="java.awt.Panel" name="pnlNavegacao">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="c8" red="0" type="rgb"/>
@@ -105,17 +120,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="bt1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPrimeiro" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAnterior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnProximo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt4" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnUltimo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="lbID" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtID" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Component id="txtCodigo" min="-2" pref="122" max="-2" attributes="0"/>
                   <EmptySpace min="42" pref="42" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -125,14 +140,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bt1" min="-2" max="-2" attributes="0"/>
-                      <Component id="bt4" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPrimeiro" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnUltimo" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="bt3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="bt2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnProximo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAnterior" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -140,26 +155,38 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.Button" name="bt1">
+        <Component class="java.awt.Button" name="btnPrimeiro">
           <Properties>
             <Property name="actionCommand" type="java.lang.String" value="&lt;&lt;"/>
             <Property name="label" type="java.lang.String" value="&lt;&lt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrimeiroActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.Button" name="bt3">
+        <Component class="java.awt.Button" name="btnProximo">
           <Properties>
             <Property name="label" type="java.lang.String" value="&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProximoActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.Button" name="bt2">
+        <Component class="java.awt.Button" name="btnAnterior">
           <Properties>
             <Property name="label" type="java.lang.String" value="&lt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.Button" name="bt4">
+        <Component class="java.awt.Button" name="btnUltimo">
           <Properties>
             <Property name="label" type="java.lang.String" value="&gt;&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbID">
           <Properties>
@@ -167,7 +194,11 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtID">
+        <Component class="javax.swing.JTextField" name="txtCodigo">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCodigoFocusLost"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -185,30 +216,25 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbID1" min="-2" max="-2" attributes="0"/>
                               <Component id="tblcurso" min="-2" max="-2" attributes="0"/>
                               <Component id="tblcurso1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtcurso" pref="49" max="32767" attributes="0"/>
-                                  <Component id="textField1" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jSpinner1" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="txtPreco" min="-2" pref="49" max="-2" attributes="0"/>
+                              <Component id="spinEstoque" min="-2" pref="46" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" pref="241" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tblnome" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="tbltel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txttel" max="32767" attributes="0"/>
-                              <Component id="txtnome" pref="237" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="tbltel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="txtTipo" min="-2" pref="237" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="tblnome" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="txtNome" pref="582" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -217,35 +243,31 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tblnome" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtnome" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="tbltel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txttel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lbID1" min="-2" max="-2" attributes="0"/>
-                              <Component id="textField1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="tblnome" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNome" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtcurso" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPreco" min="-2" max="-2" attributes="0"/>
                               <Component id="tblcurso" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tblcurso1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -280,7 +302,10 @@
             <Property name="text" type="java.lang.String" value="Pre&#xe7;o:"/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txtnome">
+        <Component class="java.awt.TextField" name="txtNome">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyPressed"/>
+          </Events>
         </Component>
         <Component class="java.awt.TextField" name="textField2">
           <Properties>
@@ -292,17 +317,15 @@
             <Property name="text" type="java.lang.String" value="textField3"/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txttel">
+        <Component class="java.awt.TextField" name="txtTipo">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTipoKeyPressed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.TextField" name="txtcurso">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbID1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ID:"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-        </Component>
-        <Component class="java.awt.TextField" name="textField1">
+        <Component class="java.awt.TextField" name="txtPreco">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrecoKeyPressed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -311,11 +334,17 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextPane" name="jTextPane1">
+            <Component class="javax.swing.JTextPane" name="txtDescricao">
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescricaoKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JSpinner" name="jSpinner1">
+        <Component class="javax.swing.JSpinner" name="spinEstoque">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="spinEstoqueKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="tblcurso1">
           <Properties>
@@ -370,16 +399,25 @@
           <Properties>
             <Property name="label" type="java.lang.String" value="Incluir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncluirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="java.awt.Button" name="btnSalvar">
           <Properties>
             <Property name="label" type="java.lang.String" value="Salvar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="java.awt.Button" name="btnCancelar">
           <Properties>
             <Property name="label" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="java.awt.Button" name="btnExcluir">
           <Properties>
@@ -388,6 +426,9 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Excluir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="java.awt.Button" name="btnPesquisar">
           <Properties>

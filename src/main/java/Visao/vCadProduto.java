@@ -1,21 +1,104 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Visao;
 
+import Controle.ctrlProduto;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 /**
  *
  * @author lissa
  */
 public class vCadProduto extends javax.swing.JDialog {
-
+    private static final int FECHADO = -1;
+    private static final int ABERTO = 0;
+    private static final int INSERCAO = 1;
+    private static final int EDICAO = 2;
+    
+    private static int statusRegistro;
     /**
      * Creates new form vCadastroFuncionario
      */
     public vCadProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        setStatusRegistro(FECHADO);
+    }
+    
+    private void habilitarBotoes(){
+        
+        boolean habilitar = (statusRegistro == ABERTO || statusRegistro == FECHADO);
+        
+        btnIncluir.setEnabled(habilitar);
+        btnExcluir.setEnabled(habilitar);
+        btnSalvar.setEnabled(!habilitar);
+        btnCancelar.setEnabled(!habilitar);
+        btnPesquisar.setEnabled(habilitar);
+        txtCodigo.setEnabled(habilitar);
+        
+        Component[] c = pnlNavegacao.getComponents();
+        for(int i = 0; i < c.length; i++) {
+            c[i].setEnabled(habilitar);
+        }                 
+    }
+    
+    /*List<Integer> values = new ArrayList<>();
+    public int getSelectedIndex(JSpinner spinner, List<Integer> values) {
+       int index=0;
+       for(Object o :values) {
+           if(o.equals(spinner.getValue()))
+               return index;
+           index++;
+       }
+       return -1;
+   }
+   public void setSelectedIndex(JSpinner spinner, List<Integer> values, int index) {
+       spinner.setValue(values.get(index));
+   }*/
+    
+    private void limparCampos(){
+        txtCodigo.setText("0");
+        txtNome.setText("");
+        txtPreco.setText("");
+        txtTipo.setText("");
+        txtDescricao.setText("");
+        //spinEstoque.setSelectedIndex(0);
+    }
+    
+    private void setStatusRegistro(int status){
+        statusRegistro = status;
+        habilitarBotoes();
+        
+        if (status == INSERCAO || status == FECHADO){
+            limparCampos();
+        }
+    }
+    
+    private void PreencherTelaComObjetoRecuperado(ArrayList<String> Registro){
+        if (!Registro.get(0).equals("-1")){
+            txtCodigo.setText(Registro.get(0));
+            txtNome.setText(Registro.get(1));
+            txtPreco.setText(Registro.get(3));
+            txtTipo.setText(Registro.get(4));
+            txtDescricao.setText(Registro.get(5));
+            //spinEstoque.setSelectedItem(Registro.get(6));
+        }
+    }
+    
+    private void navegarEntreRegistros(int opcao){
+        
+        int codigoAtual = Integer.parseInt(txtCodigo.getText());
+        
+        ctrlProduto controllerProduto = new ctrlProduto();
+        ArrayList<String> Registro = controllerProduto.RecuperaObjetoNavegacao(opcao, 
+                codigoAtual);
+        
+        PreencherTelaComObjetoRecuperado(Registro);
+        txtNome.requestFocus();
+        
+        setStatusRegistro(ABERTO);
     }
 
     /**
@@ -29,31 +112,30 @@ public class vCadProduto extends javax.swing.JDialog {
 
         button2 = new java.awt.Button();
         button7 = new java.awt.Button();
+        jComboBox1 = new javax.swing.JComboBox<>();
         panel1 = new java.awt.Panel();
         panel2 = new java.awt.Panel();
         panel3 = new java.awt.Panel();
-        navegacao = new java.awt.Panel();
-        bt1 = new java.awt.Button();
-        bt3 = new java.awt.Button();
-        bt2 = new java.awt.Button();
-        bt4 = new java.awt.Button();
+        pnlNavegacao = new java.awt.Panel();
+        btnPrimeiro = new java.awt.Button();
+        btnProximo = new java.awt.Button();
+        btnAnterior = new java.awt.Button();
+        btnUltimo = new java.awt.Button();
         lbID = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         conteudo = new java.awt.Panel();
         tblnome = new javax.swing.JLabel();
         tbltel = new javax.swing.JLabel();
         tblend = new javax.swing.JLabel();
         tblcurso = new javax.swing.JLabel();
-        txtnome = new java.awt.TextField();
+        txtNome = new java.awt.TextField();
         textField2 = new java.awt.TextField();
         textField3 = new java.awt.TextField();
-        txttel = new java.awt.TextField();
-        txtcurso = new java.awt.TextField();
-        lbID1 = new javax.swing.JLabel();
-        textField1 = new java.awt.TextField();
+        txtTipo = new java.awt.TextField();
+        txtPreco = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jSpinner1 = new javax.swing.JSpinner();
+        txtDescricao = new javax.swing.JTextPane();
+        spinEstoque = new javax.swing.JSpinner();
         tblcurso1 = new javax.swing.JLabel();
         botao = new java.awt.Panel();
         btnIncluir = new java.awt.Button();
@@ -66,6 +148,8 @@ public class vCadProduto extends javax.swing.JDialog {
 
         button7.setLabel("Cancelar");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de cliente");
 
@@ -75,52 +159,83 @@ public class vCadProduto extends javax.swing.JDialog {
 
         panel3.setLayout(new java.awt.BorderLayout());
 
-        navegacao.setBackground(new java.awt.Color(0, 200, 0));
-        navegacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlNavegacao.setBackground(new java.awt.Color(0, 200, 0));
+        pnlNavegacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        bt1.setActionCommand("<<");
-        bt1.setLabel("<<");
+        btnPrimeiro.setActionCommand("<<");
+        btnPrimeiro.setLabel("<<");
+        btnPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeiroActionPerformed(evt);
+            }
+        });
 
-        bt3.setLabel(">");
+        btnProximo.setLabel(">");
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
 
-        bt2.setLabel("<");
+        btnAnterior.setLabel("<");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
-        bt4.setLabel(">>");
+        btnUltimo.setLabel(">>");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
 
         lbID.setText("ID:");
         lbID.setToolTipText("");
 
-        javax.swing.GroupLayout navegacaoLayout = new javax.swing.GroupLayout(navegacao);
-        navegacao.setLayout(navegacaoLayout);
-        navegacaoLayout.setHorizontalGroup(
-            navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navegacaoLayout.createSequentialGroup()
+        txtCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoFocusLost(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlNavegacaoLayout = new javax.swing.GroupLayout(pnlNavegacao);
+        pnlNavegacao.setLayout(pnlNavegacaoLayout);
+        pnlNavegacaoLayout.setHorizontalGroup(
+            pnlNavegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNavegacaoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(bt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrimeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
-        navegacaoLayout.setVerticalGroup(
-            navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navegacaoLayout.createSequentialGroup()
+        pnlNavegacaoLayout.setVerticalGroup(
+            pnlNavegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNavegacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlNavegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPrimeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNavegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbID)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -132,14 +247,40 @@ public class vCadProduto extends javax.swing.JDialog {
 
         tblcurso.setText("Preço:");
 
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
+
         textField2.setText("textField2");
 
         textField3.setText("textField3");
 
-        lbID1.setText("ID:");
-        lbID1.setToolTipText("");
+        txtTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTipoKeyPressed(evt);
+            }
+        });
 
-        jScrollPane1.setViewportView(jTextPane1);
+        txtPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecoKeyPressed(evt);
+            }
+        });
+
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtDescricao);
+
+        spinEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spinEstoqueKeyPressed(evt);
+            }
+        });
 
         tblcurso1.setText("Estoque:");
 
@@ -155,52 +296,46 @@ public class vCadProduto extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, conteudoLayout.createSequentialGroup()
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbID1)
                             .addComponent(tblcurso)
                             .addComponent(tblcurso1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtcurso, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                                .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 241, Short.MAX_VALUE)
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tblnome)
-                            .addComponent(tbltel))
+                        .addComponent(tbltel)
+                        .addGap(24, 24, 24)
+                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conteudoLayout.createSequentialGroup()
+                        .addComponent(tblnome)
                         .addGap(14, 14, 14)
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txttel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtnome, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         conteudoLayout.setVerticalGroup(
             conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conteudoLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(conteudoLayout.createSequentialGroup()
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tblnome)
-                            .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
+                        .addGap(63, 63, 63)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(conteudoLayout.createSequentialGroup()
                                 .addComponent(tbltel)
                                 .addGap(4, 4, 4))
-                            .addComponent(txttel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(conteudoLayout.createSequentialGroup()
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbID1)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tblnome)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtcurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tblcurso))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tblcurso1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tblend)
@@ -212,13 +347,33 @@ public class vCadProduto extends javax.swing.JDialog {
         botao.setBackground(new java.awt.Color(0, 200, 0));
 
         btnIncluir.setLabel("Incluir");
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setLabel("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setLabel("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
         btnExcluir.setLabel("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setLabel("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -272,14 +427,14 @@ public class vCadProduto extends javax.swing.JDialog {
                 .addGap(533, 533, 533)
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(116, Short.MAX_VALUE))
-            .addComponent(navegacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlNavegacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(conteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(navegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(conteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,6 +454,130 @@ public class vCadProduto extends javax.swing.JDialog {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         new vPesqProduto(null, true).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        setStatusRegistro(INSERCAO);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        if (statusRegistro == INSERCAO){
+            setStatusRegistro(FECHADO);
+        } else if (statusRegistro == EDICAO){
+            // Recarregar o registro
+            int codigoAtual = Integer.parseInt(txtCodigo.getText());
+        
+            ctrlProduto controllerProduto = new ctrlProduto();
+            ArrayList<String> Registro = controllerProduto.RecuperaObjeto(codigoAtual);
+
+            PreencherTelaComObjetoRecuperado(Registro); 
+            
+            setStatusRegistro(ABERTO);
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        ArrayList<String> Registro = new ArrayList<>();
+        Registro.add(txtCodigo.getText());
+        Registro.add(txtNome.getText());
+        Registro.add(txtPreco.getText());
+        Registro.add(txtTipo.getText());
+        Registro.add(txtDescricao.getText());
+        //Registro.add(spinEstoque.getSelectedItem().toString());
+        
+        int codigoNovo = 0;
+        ctrlProduto ControllerProduto = new ctrlProduto();
+        
+        if (statusRegistro == INSERCAO){
+            codigoNovo = ControllerProduto.Salvar(Registro);
+            txtCodigo.setText(String.valueOf(codigoNovo));
+        } else if (statusRegistro == EDICAO) {
+            ControllerProduto.Atualizar(Registro);
+        }
+        
+        setStatusRegistro(ABERTO);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeiroActionPerformed
+        navegarEntreRegistros(0);
+    }//GEN-LAST:event_btnPrimeiroActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        navegarEntreRegistros(1);
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+        navegarEntreRegistros(2);
+    }//GEN-LAST:event_btnProximoActionPerformed
+
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+        navegarEntreRegistros(3);
+    }//GEN-LAST:event_btnUltimoActionPerformed
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_txtPrecoKeyPressed
+
+    private void txtTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_txtTipoKeyPressed
+
+    private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_txtDescricaoKeyPressed
+
+    private void spinEstoqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spinEstoqueKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_spinEstoqueKeyPressed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (statusRegistro == ABERTO){
+            
+            int podeExcluir = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?", "Meu Programa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if (podeExcluir == 0){
+                ctrlProduto controllerProduto = new ctrlProduto();
+                controllerProduto.Excluir(Integer.parseInt(txtCodigo.getText()));
+                setStatusRegistro(FECHADO);
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void txtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusLost
+        int codigoAtual = Integer.parseInt(txtCodigo.getText());
+        
+        if (codigoAtual > 0){
+            ctrlProduto controllerProduto = new ctrlProduto();
+            ArrayList<String> Registro = controllerProduto.RecuperaObjeto(codigoAtual);
+            
+            if (!Registro.get(0).equals("-1")){
+                PreencherTelaComObjetoRecuperado(Registro);                
+                setStatusRegistro(ABERTO);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Registro não encontrado");
+                setStatusRegistro(FECHADO);
+            }
+        }
+    }//GEN-LAST:event_txtCodigoFocusLost
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            txtNome.requestFocus();
+        }
+    }//GEN-LAST:event_txtCodigoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -346,38 +625,37 @@ public class vCadProduto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Panel botao;
-    private java.awt.Button bt1;
-    private java.awt.Button bt2;
-    private java.awt.Button bt3;
-    private java.awt.Button bt4;
+    private java.awt.Button btnAnterior;
     private java.awt.Button btnCancelar;
     private java.awt.Button btnExcluir;
     private java.awt.Button btnIncluir;
     private java.awt.Button btnPesquisar;
+    private java.awt.Button btnPrimeiro;
+    private java.awt.Button btnProximo;
     private java.awt.Button btnSalvar;
+    private java.awt.Button btnUltimo;
     private java.awt.Button button2;
     private java.awt.Button button7;
     private java.awt.Panel conteudo;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lbID;
-    private javax.swing.JLabel lbID1;
-    private java.awt.Panel navegacao;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
+    private java.awt.Panel pnlNavegacao;
+    private javax.swing.JSpinner spinEstoque;
     private javax.swing.JLabel tblcurso;
     private javax.swing.JLabel tblcurso1;
     private javax.swing.JLabel tblend;
     private javax.swing.JLabel tblnome;
     private javax.swing.JLabel tbltel;
-    private java.awt.TextField textField1;
     private java.awt.TextField textField2;
     private java.awt.TextField textField3;
-    private javax.swing.JTextField txtID;
-    private java.awt.TextField txtcurso;
-    private java.awt.TextField txtnome;
-    private java.awt.TextField txttel;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextPane txtDescricao;
+    private java.awt.TextField txtNome;
+    private java.awt.TextField txtPreco;
+    private java.awt.TextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }
