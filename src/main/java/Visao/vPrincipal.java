@@ -31,6 +31,7 @@ public class vPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jColorChooser1 = new javax.swing.JColorChooser();
         jColorChooser2 = new javax.swing.JColorChooser();
+        jFileChooser1 = new javax.swing.JFileChooser();
         menuPrincipal = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         itemVendedor = new javax.swing.JMenuItem();
@@ -174,6 +175,7 @@ public class vPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemVendedor;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JColorChooser jColorChooser2;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;

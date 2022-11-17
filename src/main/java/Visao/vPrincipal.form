@@ -24,6 +24,8 @@
     </Component>
     <Component class="javax.swing.JColorChooser" name="jColorChooser2">
     </Component>
+    <Component class="javax.swing.JFileChooser" name="jFileChooser1">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuPrincipal">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
