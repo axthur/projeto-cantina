@@ -26,7 +26,7 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuPrincipal">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenuCadastro">
+        <Menu class="javax.swing.JMenu" name="menuCadastro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
@@ -57,13 +57,23 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuRegistrarVenda">
+        <Menu class="javax.swing.JMenu" name="menuManutencao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registrar Venda"/>
+            <Property name="text" type="java.lang.String" value="Manuten&#xe7;&#xe3;o"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuRegistrarVendaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuManutencaoActionPerformed"/>
           </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemVenda">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Registrar Venda"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemVendaActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

@@ -32,11 +32,12 @@ public class vPrincipal extends javax.swing.JFrame {
         jColorChooser1 = new javax.swing.JColorChooser();
         jColorChooser2 = new javax.swing.JColorChooser();
         menuPrincipal = new javax.swing.JMenuBar();
-        jMenuCadastro = new javax.swing.JMenu();
+        menuCadastro = new javax.swing.JMenu();
         jMenuItemVendedor = new javax.swing.JMenuItem();
         jMenuItemCliente = new javax.swing.JMenuItem();
         jMenuItemProduto = new javax.swing.JMenuItem();
-        jMenuRegistrarVenda = new javax.swing.JMenu();
+        menuManutencao = new javax.swing.JMenu();
+        itemVenda = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -46,7 +47,7 @@ public class vPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuCadastro.setText("Cadastro");
+        menuCadastro.setText("Cadastro");
 
         jMenuItemVendedor.setText("Vendedor");
         jMenuItemVendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +55,7 @@ public class vPrincipal extends javax.swing.JFrame {
                 jMenuItemVendedorActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemVendedor);
+        menuCadastro.add(jMenuItemVendedor);
 
         jMenuItemCliente.setText("Cliente");
         jMenuItemCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +63,7 @@ public class vPrincipal extends javax.swing.JFrame {
                 jMenuItemClienteActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemCliente);
+        menuCadastro.add(jMenuItemCliente);
 
         jMenuItemProduto.setText("Produto");
         jMenuItemProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -70,17 +71,26 @@ public class vPrincipal extends javax.swing.JFrame {
                 jMenuItemProdutoActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemProduto);
+        menuCadastro.add(jMenuItemProduto);
 
-        menuPrincipal.add(jMenuCadastro);
+        menuPrincipal.add(menuCadastro);
 
-        jMenuRegistrarVenda.setText("Registrar Venda");
-        jMenuRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
+        menuManutencao.setText("Manutenção");
+        menuManutencao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuRegistrarVendaActionPerformed(evt);
+                menuManutencaoActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jMenuRegistrarVenda);
+
+        itemVenda.setText("Registrar Venda");
+        itemVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemVendaActionPerformed(evt);
+            }
+        });
+        menuManutencao.add(itemVenda);
+
+        menuPrincipal.add(menuManutencao);
 
         setJMenuBar(menuPrincipal);
 
@@ -98,9 +108,9 @@ public class vPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegistrarVendaActionPerformed
+    private void menuManutencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManutencaoActionPerformed
         new vCadVenda(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuRegistrarVendaActionPerformed
+    }//GEN-LAST:event_menuManutencaoActionPerformed
 
     private void jMenuItemVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedorActionPerformed
         new vCadVendedor(this, rootPaneCheckingEnabled).setVisible(true);
@@ -113,6 +123,10 @@ public class vPrincipal extends javax.swing.JFrame {
     private void jMenuItemProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutoActionPerformed
         new vCadProduto(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItemProdutoActionPerformed
+
+    private void itemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVendaActionPerformed
+        new vCadVenda(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_itemVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,16 +164,17 @@ public class vPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemVenda;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JColorChooser jColorChooser2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenuItem jMenuItemCliente;
     private javax.swing.JMenuItem jMenuItemProduto;
     private javax.swing.JMenuItem jMenuItemVendedor;
-    private javax.swing.JMenu jMenuRegistrarVenda;
+    private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenu menuManutencao;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 }
