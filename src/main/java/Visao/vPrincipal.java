@@ -33,9 +33,9 @@ public class vPrincipal extends javax.swing.JFrame {
         jColorChooser2 = new javax.swing.JColorChooser();
         menuPrincipal = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
-        jMenuItemVendedor = new javax.swing.JMenuItem();
-        jMenuItemCliente = new javax.swing.JMenuItem();
-        jMenuItemProduto = new javax.swing.JMenuItem();
+        itemVendedor = new javax.swing.JMenuItem();
+        itemCliente = new javax.swing.JMenuItem();
+        itemProduto = new javax.swing.JMenuItem();
         menuManutencao = new javax.swing.JMenu();
         itemVenda = new javax.swing.JMenuItem();
 
@@ -47,31 +47,35 @@ public class vPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        menuPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menuPrincipal.setForeground(new java.awt.Color(51, 102, 0));
+        menuPrincipal.setToolTipText("");
+
         menuCadastro.setText("Cadastro");
 
-        jMenuItemVendedor.setText("Vendedor");
-        jMenuItemVendedor.addActionListener(new java.awt.event.ActionListener() {
+        itemVendedor.setText("Vendedor");
+        itemVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemVendedorActionPerformed(evt);
+                itemVendedorActionPerformed(evt);
             }
         });
-        menuCadastro.add(jMenuItemVendedor);
+        menuCadastro.add(itemVendedor);
 
-        jMenuItemCliente.setText("Cliente");
-        jMenuItemCliente.addActionListener(new java.awt.event.ActionListener() {
+        itemCliente.setText("Cliente");
+        itemCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemClienteActionPerformed(evt);
+                itemClienteActionPerformed(evt);
             }
         });
-        menuCadastro.add(jMenuItemCliente);
+        menuCadastro.add(itemCliente);
 
-        jMenuItemProduto.setText("Produto");
-        jMenuItemProduto.addActionListener(new java.awt.event.ActionListener() {
+        itemProduto.setText("Produto");
+        itemProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemProdutoActionPerformed(evt);
+                itemProdutoActionPerformed(evt);
             }
         });
-        menuCadastro.add(jMenuItemProduto);
+        menuCadastro.add(itemProduto);
 
         menuPrincipal.add(menuCadastro);
 
@@ -102,7 +106,7 @@ public class vPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGap(0, 282, Short.MAX_VALUE)
         );
 
         pack();
@@ -112,17 +116,17 @@ public class vPrincipal extends javax.swing.JFrame {
         new vCadVenda(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_menuManutencaoActionPerformed
 
-    private void jMenuItemVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedorActionPerformed
+    private void itemVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVendedorActionPerformed
         new vCadVendedor(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItemVendedorActionPerformed
+    }//GEN-LAST:event_itemVendedorActionPerformed
 
-    private void jMenuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteActionPerformed
+    private void itemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClienteActionPerformed
         new vCadCliente(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItemClienteActionPerformed
+    }//GEN-LAST:event_itemClienteActionPerformed
 
-    private void jMenuItemProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutoActionPerformed
+    private void itemProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProdutoActionPerformed
         new vCadProduto(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jMenuItemProdutoActionPerformed
+    }//GEN-LAST:event_itemProdutoActionPerformed
 
     private void itemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVendaActionPerformed
         new vCadVenda(this, rootPaneCheckingEnabled).setVisible(true);
@@ -164,15 +168,15 @@ public class vPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemCliente;
+    private javax.swing.JMenuItem itemProduto;
     private javax.swing.JMenuItem itemVenda;
+    private javax.swing.JMenuItem itemVendedor;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JColorChooser jColorChooser2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItemCliente;
-    private javax.swing.JMenuItem jMenuItemProduto;
-    private javax.swing.JMenuItem jMenuItemVendedor;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuManutencao;
     private javax.swing.JMenuBar menuPrincipal;
