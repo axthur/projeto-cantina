@@ -12,11 +12,10 @@ public class ctrlProduto {
     
     public int Salvar(ArrayList<String> pLista){
         this.objProduto.setNome(pLista.get(1));
-        this.objProduto.setCodigo(Integer.valueOf(pLista.get(2)));
-        this.objProduto.setTipo(pLista.get(3));
-        this.objProduto.setDescricao(pLista.get(4));
-        this.objProduto.setPreco(Double.valueOf(pLista.get(5)));  
-        this.objProduto.setEstoque(Integer.valueOf(pLista.get(6)));  
+        this.objProduto.setTipo(pLista.get(2));
+        this.objProduto.setDescricao(pLista.get(3));
+        this.objProduto.setPreco(Double.parseDouble(pLista.get(4)));  
+        this.objProduto.setEstoque(Integer.parseInt(pLista.get(5)));  
         this.objProduto.setProximoCodigo();
         this.objProduto.Salvar();
         return this.objProduto.getCodigo();
@@ -46,12 +45,12 @@ public class ctrlProduto {
     }
     
     public void Atualizar(ArrayList<String> pLista){
-        this.objProduto.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objProduto.setCodigo(Integer.parseInt(pLista.get(0)));
         this.objProduto.setNome(pLista.get(1));
         this.objProduto.setTipo(pLista.get(2));
         this.objProduto.setDescricao(pLista.get(3));
-        this.objProduto.setPreco(Double.valueOf(pLista.get(4)));
-        this.objProduto.setEstoque(Integer.valueOf(pLista.get(5)));
+        this.objProduto.setPreco(Double.parseDouble(pLista.get(4)));
+        this.objProduto.setEstoque(Integer.parseInt(pLista.get(5)));
         
         this.objProduto.Atualizar();
     }

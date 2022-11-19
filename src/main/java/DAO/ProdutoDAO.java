@@ -25,18 +25,10 @@ public class ProdutoDAO {
         String sql = "";
                 
         switch(iOpcao){
-            case cNavPrimeiro: 
-                sql = "select min(ID) as ID from PRODUTO"; 
-                break;
-            case cNavAnterior: 
-                sql = "select max(ID) as ID from PRODUTO where ID < " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavProximo: 
-                sql = "select min(ID) as ID from PRODUTO where ID > " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavUltimo: 
-                sql = "select max(ID) as ID from PRODUTO"; 
-                break;
+            case cNavPrimeiro -> sql = "select min(ID) as ID from produto";
+            case cNavAnterior -> sql = "select max(ID) as ID from produto where ID < " + String.valueOf(icodigoAtual);
+            case cNavProximo -> sql = "select min(ID) as ID from produto where ID > " + String.valueOf(icodigoAtual);
+            case cNavUltimo -> sql = "select max(ID) as ID from produto";
         }
         
         try {
@@ -67,7 +59,7 @@ public class ProdutoDAO {
         ResultSet resultado = null;
         int codigo = -1;
         
-        String sql = "select max(codigo) as ID from PRODUTO";
+        String sql = "select max(ID) as ID from produto";
         
         try {
             consulta = (Statement)conexao.createStatement();
@@ -94,7 +86,7 @@ public class ProdutoDAO {
         
         PreparedStatement insereSt = null;
         
-        String sql = "insert produto (CODIGO, NOME, TIPO, DESCRICAO, PREÇO, ESTOQUE  values (?,?,?,?,?,?,?)";
+        String sql = "insert produto (ID, NOME, TIPO, DESCRICAO, PREÇO, ESTOQUE  values (?,?,?,?,?,?,?)";
         
         try {            
             insereSt = conexao.prepareStatement(sql);
@@ -163,7 +155,7 @@ public class ProdutoDAO {
         
         PreparedStatement atualizaSt = null;
         
-        String sql = "update PRODUTO set NOME = ?, TIPO = ?, DESCRICAO = ?, PRECO = ?, ESTOQUE = ? where ID = ?";
+        String sql = "update produto set NOME = ?, TIPO = ?, DESCRICAO = ?, PRECO = ?, ESTOQUE = ? where ID = ?";
         
         try {
             atualizaSt = conexao.prepareStatement(sql);
@@ -192,7 +184,7 @@ public class ProdutoDAO {
         
         PreparedStatement excluiSt = null;
         
-        String sql = "delete from PRODUTO where ID = " + iCod;
+        String sql = "delete from produto where ID = " + iCod;
         
         try {
             excluiSt = conexao.prepareStatement(sql);

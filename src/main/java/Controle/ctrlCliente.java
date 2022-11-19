@@ -14,8 +14,8 @@ public class ctrlCliente {
         this.objCliente.setNome(pLista.get(1));
         this.objCliente.setTelefone(pLista.get(2));
         this.objCliente.setEmail(pLista.get(3));
-        this.objCliente.setEndereco(pLista.get(3));
-        this.objCliente.setCurso(pLista.get(3));        
+        this.objCliente.setEndereco(pLista.get(4));
+        this.objCliente.setCurso(pLista.get(5));        
         this.objCliente.setProximoCodigo();
         this.objCliente.Salvar();
         return this.objCliente.getCodigo();
@@ -44,7 +44,7 @@ public class ctrlCliente {
     }
     
     public void Atualizar(ArrayList<String> pLista){
-        this.objCliente.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objCliente.setCodigo(Integer.parseInt(pLista.get(0)));
         this.objCliente.setNome(pLista.get(1));
         this.objCliente.setTelefone(pLista.get(2));
         this.objCliente.setEmail(pLista.get(3));

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VendaDAO {
@@ -25,18 +26,10 @@ public class VendaDAO {
         String sql = "";
                 
         switch(iOpcao){
-            case cNavPrimeiro: 
-                sql = "select min(ID) as ID from VENDA"; 
-                break;
-            case cNavAnterior: 
-                sql = "select max(ID) as ID from VENDA where ID < " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavProximo: 
-                sql = "select min(ID) as ID from VENDA where ID > " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavUltimo: 
-                sql = "select max(ID) as ID from VENDA"; 
-                break;
+            case cNavPrimeiro -> sql = "select min(ID) as ID from venda";
+            case cNavAnterior -> sql = "select max(ID) as ID from venda where ID < " + String.valueOf(icodigoAtual);
+            case cNavProximo -> sql = "select min(ID) as ID from venda where ID > " + String.valueOf(icodigoAtual);
+            case cNavUltimo -> sql = "select max(ID) as ID from venda";
         }
         
         try {
@@ -66,7 +59,7 @@ public class VendaDAO {
         ResultSet resultado = null;
         int codigo = -1;
         
-        String sql = "select max(codigo) as ID from VENDA";
+        String sql = "select max(ID) as ID from venda";
         
         try {
             consulta = (Statement)conexao.createStatement();
@@ -211,5 +204,52 @@ public class VendaDAO {
                 JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Excluir(): " + e.getMessage());
             }
         }
+    }
+    
+    public static ArrayList<Venda> RecuperaObjetos(String pSql){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        ArrayList<Venda> Vendas = new ArrayList<Venda>();
+        Statement consulta = null;
+        ResultSet resultado = null;
+        
+        try{
+            consulta = (Statement) conexao.createStatement();
+            resultado = consulta.executeQuery(pSql);
+            
+            while(resultado.next()){
+                Venda VendaTemp = new Venda();
+                VendaTemp.setCodigo(resultado.getInt("ID"));
+                VendaTemp.setIdCliente(resultado.getInt("ID_CLIENTE"));
+                VendaTemp.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
+                VendaTemp.setValor(resultado.getDouble("VALOR"));
+                VendaTemp.setDataCompra(resultado.getString("DATA_COMPRA"));
+                VendaTemp.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
+                VendaTemp.setMetodoDePagamento(resultado.getString("METODO_PAGAMENTO"));
+                
+                Vendas.add(VendaTemp);
+            }
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao listar vendas: " + e);
+        }finally{
+            try{
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            }catch(Throwable e){
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexao: " + e);
+            }
+        }
+        return Vendas;
+    }
+    
+    public static ArrayList<Venda> PesquisaObjeto(String pCampo, String pValor, boolean pTodaParte){
+        String sql = "select p.*, c.ID_CLIENTE from venda p, CLIENTE c where p.ID_CLIENTE = c.ID and " + pCampo + " like '";
+        if (pTodaParte)
+            sql = sql + "%";
+        sql = sql + pValor + "%'";
+        
+        return RecuperaObjetos(sql);
     }
 }

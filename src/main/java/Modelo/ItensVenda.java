@@ -1,5 +1,8 @@
 package Modelo;
 
+import DAO.ItensVendaDAO;
+import java.util.ArrayList;
+
 public class ItensVenda {
     private int id;
     private int idVenda;
@@ -12,9 +15,9 @@ public class ItensVenda {
         this.id = -1;
         this.idVenda = -1;
         this.idProduto = -1;
-        this.quantidade = -1;
-        this.valorUnitario = -1;
-        this.valorTotal = -1;
+        this.quantidade = 0;
+        this.valorUnitario = 0;
+        this.valorTotal = 0;
     }
 
     public int getCodigo() {
@@ -63,5 +66,21 @@ public class ItensVenda {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+    
+    public void Salvar(){
+        ItensVendaDAO.Salvar(this);
+    }
+    
+    public void Excluir(int iCod){
+        ItensVendaDAO.Excluir(iCod);
+    }
+    
+    public static ArrayList<ItensVenda> RecuperaObjetos(int iCod){
+        return ItensVendaDAO.RecuperaObjetos(iCod);
+    }
+    
+    public static boolean RecuperaObjeto(int iCod){
+        return ItensVendaDAO.RecuperaObjeto(iCod);
     }
 }

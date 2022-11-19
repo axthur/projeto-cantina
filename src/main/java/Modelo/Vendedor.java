@@ -9,7 +9,7 @@ public class Vendedor {
     private String email;
     private String endereco;
     private int cargaHoraria;
-    private String senha;
+    private int senha;
 
     public Vendedor(){
         this.id = -1;
@@ -18,7 +18,7 @@ public class Vendedor {
         this.email = "";
         this.endereco = "";
         this.cargaHoraria = -1;
-        this.senha = "";
+        this.senha = -1;
     }
 
     public int getId() {
@@ -29,11 +29,11 @@ public class Vendedor {
         this.id = id;
     }
 
-    public String getSenha() {
+    public int getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(int senha) {
         this.senha = senha;
     }
 
@@ -108,6 +108,7 @@ public class Vendedor {
         this.setEmail(vendedorTemp.getEmail());
         this.setEndereco(vendedorTemp.getEndereco());
         this.setCargaHoraria(vendedorTemp.getCargaHoraria());
+        this.setSenha(vendedorTemp.getSenha());
     }
     
     public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){

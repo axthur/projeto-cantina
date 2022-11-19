@@ -298,10 +298,13 @@ public class vCadProduto extends javax.swing.JDialog {
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tblcurso)
                             .addComponent(tblcurso1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(conteudoLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(conteudoLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(txtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 241, Short.MAX_VALUE)
                         .addComponent(tbltel)
                         .addGap(24, 24, 24)
@@ -452,7 +455,7 @@ public class vCadProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new vPesqProduto(null, true).setVisible(true);
+        new vPesqProduto(null, true, null, null).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
@@ -479,10 +482,11 @@ public class vCadProduto extends javax.swing.JDialog {
         ArrayList<String> Registro = new ArrayList<>();
         Registro.add(txtCodigo.getText());
         Registro.add(txtNome.getText());
-        Registro.add(txtPreco.getText());
         Registro.add(txtTipo.getText());
         Registro.add(txtDescricao.getText());
+        Registro.add(txtPreco.getText());
         //Registro.add(spinEstoque.getSelectedItem().toString());
+        Registro.add("1");
         
         int codigoNovo = 0;
         ctrlProduto ControllerProduto = new ctrlProduto();

@@ -43,6 +43,7 @@ public class vCadVendedor extends javax.swing.JDialog {
         txtCodigo.setText("0");
         txtNome.setText("");
         txtTelefone.setText("");
+        txtEmail.setText("");
         txtEndereco.setText("");
         txtCargaHoraria.setText("");
         txtSenha.setText("");
@@ -61,7 +62,8 @@ public class vCadVendedor extends javax.swing.JDialog {
         if (!Registro.get(0).equals("-1")){
             txtCodigo.setText(Registro.get(0));
             txtNome.setText(Registro.get(1));
-            txtTelefone.setText(Registro.get(3));
+            txtTelefone.setText(Registro.get(2));
+            txtEmail.setText(Registro.get(3));
             txtEndereco.setText(Registro.get(4));
             txtCargaHoraria.setText(Registro.get(5));
             txtSenha.setText(Registro.get(6));
@@ -115,6 +117,9 @@ public class vCadVendedor extends javax.swing.JDialog {
         txtCargaHoraria = new java.awt.TextField();
         jLabel1 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        txtEmail = new java.awt.TextField();
+        tblnome1 = new javax.swing.JLabel();
         botao = new java.awt.Panel();
         btnIncluir = new java.awt.Button();
         btnSalvar = new java.awt.Button();
@@ -251,7 +256,7 @@ public class vCadVendedor extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Senha:");
+        jLabel1.setText("PIN*:");
 
         txtSenha.setText("jPasswordField1");
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +270,17 @@ public class vCadVendedor extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel2.setText("*Apenas números são aceitos na criação de um PIN (senha).");
+
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
+
+        tblnome1.setText("E-mail:");
+
         javax.swing.GroupLayout conteudoLayout = new javax.swing.GroupLayout(conteudo);
         conteudo.setLayout(conteudoLayout);
         conteudoLayout.setHorizontalGroup(
@@ -273,40 +289,42 @@ public class vCadVendedor extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(conteudoLayout.createSequentialGroup()
-                        .addComponent(tblnome)
-                        .addGap(14, 14, 14)
-                        .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))
-                    .addGroup(conteudoLayout.createSequentialGroup()
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, conteudoLayout.createSequentialGroup()
-                                .addComponent(tbltel)
-                                .addGap(14, 14, 14)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, conteudoLayout.createSequentialGroup()
-                                .addComponent(tblend)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(conteudoLayout.createSequentialGroup()
-                                .addComponent(tblcurso)
+                                .addComponent(tblend)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(conteudoLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(25, 25, 25))
+                                .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tbltel)
+                                    .addComponent(tblnome))
+                                .addGap(14, 14, 14)
+                                .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))))
+                        .addGap(30, 30, 30)
+                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tblcurso)
+                            .addComponent(jLabel1)
+                            .addComponent(tblnome1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         conteudoLayout.setVerticalGroup(
             conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conteudoLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(50, 50, 50)
                 .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tblnome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tblnome1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(conteudoLayout.createSequentialGroup()
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +343,9 @@ public class vCadVendedor extends javax.swing.JDialog {
                             .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         botao.setBackground(new java.awt.Color(0, 200, 0));
@@ -410,7 +430,7 @@ public class vCadVendedor extends javax.swing.JDialog {
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(533, 533, 533)
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(pnlNavegacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(conteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -468,9 +488,11 @@ public class vCadVendedor extends javax.swing.JDialog {
         Registro.add(txtCodigo.getText());
         Registro.add(txtNome.getText());
         Registro.add(txtTelefone.getText());
+        Registro.add(txtEmail.getText());
         Registro.add(txtEndereco.getText());
         Registro.add(txtCargaHoraria.getText());
-        Registro.add(txtSenha.getText());
+        String password = String.valueOf(txtSenha.getPassword());
+        Registro.add(password);
         
         int codigoNovo = 0;
         ctrlVendedor ControllerVendedor = new ctrlVendedor();
@@ -567,6 +589,12 @@ public class vCadVendedor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        if (statusRegistro == ABERTO){
+            setStatusRegistro(EDICAO);
+        }
+    }//GEN-LAST:event_txtEmailKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -634,6 +662,7 @@ public class vCadVendedor extends javax.swing.JDialog {
     private java.awt.Button button7;
     private java.awt.Panel conteudo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbID;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
@@ -642,11 +671,13 @@ public class vCadVendedor extends javax.swing.JDialog {
     private javax.swing.JLabel tblcurso;
     private javax.swing.JLabel tblend;
     private javax.swing.JLabel tblnome;
+    private javax.swing.JLabel tblnome1;
     private javax.swing.JLabel tbltel;
     private java.awt.TextField textField2;
     private java.awt.TextField textField3;
     private java.awt.TextField txtCargaHoraria;
     private javax.swing.JTextField txtCodigo;
+    private java.awt.TextField txtEmail;
     private java.awt.TextField txtEndereco;
     private java.awt.TextField txtNome;
     private javax.swing.JPasswordField txtSenha;

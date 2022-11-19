@@ -15,7 +15,8 @@ public class ctrlVendedor {
         this.objVendedor.setTelefone(pLista.get(2));
         this.objVendedor.setEmail(pLista.get(3));
         this.objVendedor.setEndereco(pLista.get(4));
-        this.objVendedor.setCargaHoraria(Integer.valueOf(pLista.get(5)));        
+        this.objVendedor.setCargaHoraria(Integer.parseInt(pLista.get(5)));
+        this.objVendedor.setSenha(Integer.parseInt(pLista.get(6)));
         this.objVendedor.setProximoCodigo();
         this.objVendedor.Salvar();
         return this.objVendedor.getCodigo();
@@ -29,6 +30,7 @@ public class ctrlVendedor {
         vetCampos.add(this.objVendedor.getEmail());
         vetCampos.add(this.objVendedor.getEndereco());
         vetCampos.add(String.valueOf(this.objVendedor.getCargaHoraria()));
+        vetCampos.add(String.valueOf(this.objVendedor.getSenha()));
                 
         return vetCampos;
     }
@@ -44,12 +46,13 @@ public class ctrlVendedor {
     }
     
     public void Atualizar(ArrayList<String> pLista){
-        this.objVendedor.setCodigo(Integer.valueOf(pLista.get(0)));
+        this.objVendedor.setCodigo(Integer.parseInt(pLista.get(0)));
         this.objVendedor.setNome(pLista.get(1));
         this.objVendedor.setTelefone(pLista.get(2));
         this.objVendedor.setEmail(pLista.get(3));
         this.objVendedor.setEndereco(pLista.get(4));
-        this.objVendedor.setCargaHoraria(Integer.valueOf(pLista.get(5)));
+        this.objVendedor.setCargaHoraria(Integer.parseInt(pLista.get(5)));
+        this.objVendedor.setSenha(Integer.parseInt(pLista.get(6)));
         
         this.objVendedor.Atualizar();
     }

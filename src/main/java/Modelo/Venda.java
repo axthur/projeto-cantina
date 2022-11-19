@@ -1,6 +1,7 @@
 package Modelo;
 
 import DAO.VendaDAO;
+import java.util.ArrayList;
 
 public class Venda {
     private int id;
@@ -106,5 +107,14 @@ public class Venda {
     public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
         int CodigoNav = VendaDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
         RecuperaObjeto(CodigoNav);
+    }
+    public ArrayList<Venda> RecuperaObjetos(String pCampo, String pValor, boolean pTodaParte){
+        String NomeCampo = "";
+        if (pCampo.equals("0"))
+            NomeCampo = "p.CODIGO_PED";
+        else
+            NomeCampo = "c.NOME_CLI";
+        
+        return VendaDAO.PesquisaObjeto(NomeCampo, pValor, pTodaParte);
     }
 }

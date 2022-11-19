@@ -25,18 +25,10 @@ public class VendedorDAO {
         String sql = "";
                 
         switch(iOpcao){
-            case cNavPrimeiro: 
-                sql = "select min(ID) as ID from VENDEDOR"; 
-                break;
-            case cNavAnterior: 
-                sql = "select max(ID) as ID from VENDEDOR where ID < " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavProximo: 
-                sql = "select min(ID) as ID from VENDEDOR where ID > " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavUltimo: 
-                sql = "select max(ID) as ID from VENDEDOR"; 
-                break;
+            case cNavPrimeiro -> sql = "select min(ID) as ID from vendedor";
+            case cNavAnterior -> sql = "select max(ID) as ID from vendedor where ID < " + String.valueOf(icodigoAtual);
+            case cNavProximo -> sql = "select min(ID) as ID from vendedor where ID > " + String.valueOf(icodigoAtual);
+            case cNavUltimo -> sql = "select max(ID) as ID from vendedor";
         }
         
         try {
@@ -66,7 +58,7 @@ public class VendedorDAO {
         ResultSet resultado = null;
         int codigo = -1;
         
-        String sql = "select max(codigo) as ID from VENDEDOR";
+        String sql = "select max(ID) as ID from vendedor";
         
         try {
             consulta = (Statement)conexao.createStatement();
@@ -93,7 +85,7 @@ public class VendedorDAO {
         
         PreparedStatement insereSt = null;
         
-        String sql = "insert vendedor (ID, NOME, TELEFONE, EMAIL, ENDERECO, CARGA_HORARIA) values (?,?,?,?,?,?)";
+        String sql = "insert vendedor (ID, NOME, TELEFONE, EMAIL, ENDERECO, CARGA_HORARIA, SENHA) values (?,?,?,?,?,?,?)";
         
         try {            
             insereSt = conexao.prepareStatement(sql);
@@ -101,8 +93,9 @@ public class VendedorDAO {
             insereSt.setString(2, vendedor.getNome());
             insereSt.setString(3, vendedor.getTelefone());
             insereSt.setString(4, vendedor.getEmail());
-            insereSt.setString(4, vendedor.getEndereco());
-            insereSt.setInt(4, vendedor.getCargaHoraria());
+            insereSt.setString(5, vendedor.getEndereco());
+            insereSt.setInt(6, vendedor.getCargaHoraria());
+            insereSt.setInt(7, vendedor.getSenha());
             insereSt.executeUpdate();            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar vendedor: " + e.getMessage());
@@ -140,7 +133,8 @@ public class VendedorDAO {
                 vendedorRecuperado.setTelefone(resultado.getString("TELEFONE"));
                 vendedorRecuperado.setEmail(resultado.getString("EMAIL"));
                 vendedorRecuperado.setEndereco(resultado.getString("ENDERECO"));
-                vendedorRecuperado.setCargaHoraria(resultado.getInt("CARGA HORÁRIA"));
+                vendedorRecuperado.setCargaHoraria(resultado.getInt("CARGA_HORARIA"));
+                vendedorRecuperado.setEndereco(resultado.getString("SENHA"));
             }
             
         } catch (SQLException e) {
@@ -164,7 +158,7 @@ public class VendedorDAO {
         
         PreparedStatement atualizaSt = null;
         
-        String sql = "update vendedor set NOME = ?, TELEFONE = ?, EMAIL = ?, ENDERECO = ?, CARGA_HORARIA = ? where ID = ?";
+        String sql = "update vendedor set NOME = ?, TELEFONE = ?, EMAIL = ?, ENDERECO = ?, CARGA_HORARIA = ?, SENHA = ? where ID = ?";
         
         try {
             atualizaSt = conexao.prepareStatement(sql);
@@ -174,6 +168,7 @@ public class VendedorDAO {
             atualizaSt.setString(4, vendedor.getEndereco());
             atualizaSt.setInt(5, vendedor.getCargaHoraria());
             atualizaSt.setInt(6, vendedor.getCodigo());
+            atualizaSt.setInt(7, vendedor.getSenha());
             atualizaSt.executeUpdate();            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor: " + e.getMessage());

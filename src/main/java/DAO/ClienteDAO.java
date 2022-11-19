@@ -25,18 +25,10 @@ public class ClienteDAO {
         String sql = "";
                 
         switch(iOpcao){
-            case cNavPrimeiro: 
-                sql = "select min(ID) as ID from CLIENTE"; 
-                break;
-            case cNavAnterior: 
-                sql = "select max(ID) as ID from CLIENTE where ID < " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavProximo: 
-                sql = "select min(ID) as ID from CLIENTE where ID > " + String.valueOf(icodigoAtual); 
-                break;
-            case cNavUltimo: 
-                sql = "select max(ID) as ID from CLIENTE"; 
-                break;
+            case cNavPrimeiro -> sql = "select min(ID) as ID from cliente";
+            case cNavAnterior -> sql = "select max(ID) as ID from cliente where ID < " + String.valueOf(icodigoAtual);
+            case cNavProximo -> sql = "select min(ID) as ID from cliente where ID > " + String.valueOf(icodigoAtual);
+            case cNavUltimo -> sql = "select max(ID) as ID from cliente";
         }
         
         try {
@@ -67,7 +59,7 @@ public class ClienteDAO {
         ResultSet resultado = null;
         int codigo = -1;
         
-        String sql = "select max(codigo) as ID from CLIENTE";
+        String sql = "select max(ID) as ID from cliente";
         
         try {
             consulta = (Statement)conexao.createStatement();
@@ -102,8 +94,8 @@ public class ClienteDAO {
             insereSt.setString(2, cliente.getNome());
             insereSt.setString(3, cliente.getTelefone());
             insereSt.setString(4, cliente.getEmail());
-            insereSt.setString(4, cliente.getEndereco());
-            insereSt.setString(4, cliente.getCurso());
+            insereSt.setString(5, cliente.getEndereco());
+            insereSt.setString(6, cliente.getCurso());
             insereSt.executeUpdate();            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + e.getMessage());
@@ -126,7 +118,7 @@ public class ClienteDAO {
         Statement consulta = null;
         ResultSet resultado = null;
         
-        String sql = "select * from cliente where codigo = " + iCod;
+        String sql = "select * from cliente where ID = " + iCod;
         
         try {
             consulta = conexao.createStatement();
@@ -165,7 +157,7 @@ public class ClienteDAO {
         
         PreparedStatement atualizaSt = null;
         
-        String sql = "update CLIENTE set NOME = ?, TELEFONE = ?, EMAIL = ?, ENDERECO = ?, CURSO = ? where ID = ?";
+        String sql = "update cliente set NOME = ?, TELEFONE = ?, EMAIL = ?, ENDERECO = ?, CURSO = ? where ID = ?";
         
         try {
             atualizaSt = conexao.prepareStatement(sql);
@@ -194,7 +186,7 @@ public class ClienteDAO {
         
         PreparedStatement excluiSt = null;
         
-        String sql = "delete from CLIENTE where ID = " + iCod;
+        String sql = "delete from cliente where ID = " + iCod;
         
         try {
             excluiSt = conexao.prepareStatement(sql);
