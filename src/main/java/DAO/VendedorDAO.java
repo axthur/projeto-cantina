@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VendedorDAO {
@@ -203,5 +204,44 @@ public class VendedorDAO {
                 JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Excluir(): " + e.getMessage());
             }
         }
+    }
+    
+    //RecuperaObjetos(): RECUPERA UMA TABELA DO BANCO DE DADOS
+    public static ArrayList<Vendedor> RecuperaObjetos(String pCampo, String pValor){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        ArrayList<Vendedor> vendedores = new ArrayList<>();
+        Statement consulta = null;
+        ResultSet resultado = null;
+        
+        String sql = "select * from vendedor where " + pCampo + " like '%" + pValor + "'%";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+            
+            while(resultado.next()){
+                Vendedor vendedorTemp = new Vendedor();
+                vendedorTemp.setCodigo(resultado.getInt("ID"));
+                vendedorTemp.setNome(resultado.getString("NOME"));
+                vendedorTemp.setTelefone(resultado.getString("TELEFONE"));
+                vendedorTemp.setEmail(resultado.getString("EMAIL"));
+                vendedorTemp.setEndereco(resultado.getString("ENDERECO"));
+                vendedorTemp.setCargaHoraria(resultado.getInt("CARGA_HORARIA"));
+                vendedorTemp.setSenha(resultado.getInt("SENHA"));
+                vendedores.add(vendedorTemp);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar vendedor: " + e.getMessage());
+        } finally{
+            try{
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função RecuperaObjetos(): " + e.getMessage());
+            }
+        }
+        return vendedores;
     }
 }

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ProdutoDAO {
@@ -199,5 +200,43 @@ public class ProdutoDAO {
                 JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Excluir(): " + e.getMessage());
             }
         }
+    }
+    
+    //RecuperaObjetos(): RECUPERA UMA TABELA DO BANCO DE DADOS
+    public static ArrayList<Produto> RecuperaObjetos(String pCampo, String pValor){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        ArrayList<Produto> produtos = new ArrayList<>();
+        Statement consulta = null;
+        ResultSet resultado = null;
+        
+        String sql = "select * from produto where " + pCampo + " like '%" + pValor + "'%";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+            
+            while(resultado.next()){
+                Produto produtoTemp = new Produto();
+                produtoTemp.setCodigo(resultado.getInt("ID"));
+                produtoTemp.setNome(resultado.getString("NOME"));
+                produtoTemp.setTipo(resultado.getString("TIPO"));
+                produtoTemp.setDescricao(resultado.getString("DESCRICAO"));
+                produtoTemp.setPreco(resultado.getDouble("PRECO"));
+                produtoTemp.setEstoque(resultado.getInt("ESTOQUE"));
+                produtos.add(produtoTemp);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar produto: " + e.getMessage());
+        } finally{
+            try{
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função RecuperaObjetos(): " + e.getMessage());
+            }
+        }
+        return produtos;
     }
 }

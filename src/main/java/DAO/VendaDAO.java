@@ -221,7 +221,7 @@ public class VendaDAO {
                 Venda VendaTemp = new Venda();
                 VendaTemp.setCodigo(resultado.getInt("ID"));
                 VendaTemp.setIdCliente(resultado.getInt("ID_CLIENTE"));
-                VendaTemp.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
+                VendaTemp.setIdVendedor(resultado.getInt("ID_venda"));
                 VendaTemp.setValor(resultado.getDouble("VALOR"));
                 VendaTemp.setDataCompra(resultado.getString("DATA_COMPRA"));
                 VendaTemp.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
@@ -251,5 +251,44 @@ public class VendaDAO {
         sql = sql + pValor + "%'";
         
         return RecuperaObjetos(sql);
+    }
+    
+    //RecuperaObjetos(): RECUPERA UMA TABELA DO BANCO DE DADOS
+    public static ArrayList<Venda> RecuperaObjetos(String pCampo, String pValor){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        ArrayList<Venda> vendas = new ArrayList<>();
+        Statement consulta = null;
+        ResultSet resultado = null;
+        
+        String sql = "select * from venda where " + pCampo + " like '%" + pValor + "'%";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+            
+            while(resultado.next()){
+                Venda vendaTemp = new Venda();
+                vendaTemp.setCodigo(resultado.getInt("ID"));
+                vendaTemp.setIdCliente(resultado.getInt("ID_CLIENTE"));
+                vendaTemp.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
+                vendaTemp.setValor(resultado.getDouble("VALOR"));
+                vendaTemp.setDataCompra(resultado.getString("DATA_COMPRA"));
+                vendaTemp.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
+                vendaTemp.setMetodoDePagamento(resultado.getString("METODO_PAGAMENTO"));
+                vendas.add(vendaTemp);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar venda: " + e.getMessage());
+        } finally{
+            try{
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função RecuperaObjetos(): " + e.getMessage());
+            }
+        }
+        return vendas;
     }
 }

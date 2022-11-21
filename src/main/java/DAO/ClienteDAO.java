@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ClienteDAO {
@@ -201,5 +202,44 @@ public class ClienteDAO {
                 JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Excluir(): " + e.getMessage());
             }
         }
+    }
+    
+    //RecuperaObjetos(): RECUPERA UMA TABELA DO BANCO DE DADOS
+    public static ArrayList<Cliente> RecuperaObjetos(String pCampo, String pValor){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        Statement consulta = null;
+        ResultSet resultado = null;
+        
+        String sql = "select * from cliente where " + pCampo + " like '%" + pValor + "'%";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+            
+            while(resultado.next()){
+                Cliente clienteTemp = new Cliente();
+                clienteTemp.setCodigo(resultado.getInt("ID"));
+                clienteTemp.setNome(resultado.getString("NOME"));
+                clienteTemp.setTelefone(resultado.getString("TELEFONE"));
+                clienteTemp.setEmail(resultado.getString("EMAIL"));
+                clienteTemp.setEndereco(resultado.getString("ENDERECO"));
+                clienteTemp.setCurso(resultado.getString("CURSO"));
+                clientes.add(clienteTemp);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar cliente: " + e.getMessage());
+        } finally{
+            try{
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função RecuperaObjetos(): " + e.getMessage());
+            }
+        }
+        
+        return clientes;
     }
 }
