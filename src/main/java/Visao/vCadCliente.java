@@ -83,12 +83,10 @@ public class vCadCliente extends javax.swing.JDialog {
     }
     
     private void navegarEntreRegistros(int opcao){
-        
         int codigoAtual = Integer.parseInt(txtCodigo.getText());
         
         ctrlCliente controllerCliente = new ctrlCliente();
-        ArrayList<String> Registro = controllerCliente.RecuperaObjetoNavegacao(opcao, 
-                codigoAtual);
+        ArrayList<String> Registro = controllerCliente.RecuperaObjetoNavegacao(opcao,codigoAtual);
         
         PreencherTelaComObjetoRecuperado(Registro);
         txtNome.requestFocus();

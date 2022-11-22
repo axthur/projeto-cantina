@@ -98,10 +98,10 @@ public class Venda {
         this.setCodigo(vendaTemp.getCodigo());
         this.setIdCliente(vendaTemp.getIdCliente());
         this.setIdVendedor(vendaTemp.getIdVendedor());
-        this.setValor(vendaTemp.getValor());
         this.setDataCompra(vendaTemp.getDataCompra());
         this.setDataPagamento(vendaTemp.getDataPagamento());
         this.setMetodoDePagamento(vendaTemp.getMetodoDePagamento());
+        this.setValor(vendaTemp.getValor());
     }
     
     public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){

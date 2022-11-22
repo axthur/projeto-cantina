@@ -2,7 +2,11 @@ package Visao;
 
 import Controle.ctrlVenda;
 import Controle.ctrlCliente;
+import Controle.ctrlItensVenda;
 import Controle.ctrlProduto;
+import DAO.ItensVendaDAO;
+import static DAO.ItensVendaDAO.PegaProximoCodigo;
+import Modelo.ItensVenda;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -23,12 +27,12 @@ public class vCadVenda extends javax.swing.JDialog {
     private static final int EDICAO = 2;
 
     private static int statusRegistro;
-    
-    public int getRetornoConsulta(){
+
+    public int getRetornoConsulta() {
         return this.RetornoConsulta;
     }
-    
-    public void setRetornoConsulta(int RetornoConsulta){
+
+    public void setRetornoConsulta(int RetornoConsulta) {
         this.RetornoConsulta = RetornoConsulta;
         this.txtCodigo.setText(String.valueOf(RetornoConsulta));
         txtCodigoFocusLost(null);
@@ -42,13 +46,22 @@ public class vCadVenda extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setStatusRegistro(FECHADO);
+        Flag = true;
+
+        vColunas = PegaColunasDaGrade();
+        objTabela = new DefaultTableModel(vColunas, 0);
+        tblItens.setModel(objTabela);
+        tblItens.getColumnModel().getColumn(0).setMinWidth(0);
+        tblItens.getColumnModel().getColumn(0).setMaxWidth(0);
+
+        TrocaEstadoBotao(1);
     }
 
     private void habilitarBotoes() {
 
         boolean habilitar = (statusRegistro == ABERTO || statusRegistro == FECHADO);
 
-        btnNovo.setEnabled(habilitar);
+        btnIncluir.setEnabled(habilitar);
         btnExcluir.setEnabled(habilitar);
         btnSalvar.setEnabled(!habilitar);
         btnCancelar.setEnabled(!habilitar);
@@ -69,6 +82,8 @@ public class vCadVenda extends javax.swing.JDialog {
         txtDataPagamento.setText("");
         labTotal.setText("0");
         txtMetodoDePagamento.setText("");
+        //objTabela.setRowCount(0);
+        //tblItens.setModel(objTabela);
     }
 
     private void setStatusRegistro(int status) {
@@ -87,34 +102,62 @@ public class vCadVenda extends javax.swing.JDialog {
             txtCodigoVendedor.setText(Registro.get(2));
             txtDataCompra.setText(Registro.get(3));
             txtDataPagamento.setText(Registro.get(4));
-            labTotal.setText(Registro.get(5));
-            txtMetodoDePagamento.setText(Registro.get(6));
+            txtMetodoDePagamento.setText(Registro.get(5));
+            labTotal.setText(Registro.get(6));
+        }
+    }
+    
+    private void PreencherTelaComItensRecuperados(ArrayList<ItensVenda> Itens){
+        if(!Itens.get(0).equals("-1")){
+            for(int i = 0; i < Itens.size(); i++){
+                Vector<String> vetVetor = new Vector<String>();
+                vetVetor.addElement(String.valueOf(Itens.get(i).getCodigoProduto()));
+                vetVetor.addElement(Itens.get(i).getNomeProduto());
+                vetVetor.addElement(String.valueOf(Itens.get(i).getQuantidade()));
+                vetVetor.addElement(String.valueOf(Itens.get(i).getValorUnitario()));
+                vetVetor.addElement(String.valueOf(Itens.get(i).getValorTotal()));
+                objTabela.addRow(vetVetor);
+            }
+            tblItens.setModel(objTabela);
         }
     }
 
     private void navegarEntreRegistros(int opcao) {
-
         int codigoAtual = Integer.parseInt(txtCodigo.getText());
 
-        ctrlVenda controllerVenda = new ctrlVenda();
-        ArrayList<String> Registro = controllerVenda.RecuperaObjetoNavegacao(opcao,
-                codigoAtual);
+        ctrlVenda controllerVenda = new ctrlVenda();        
+        ArrayList<String> Registro = controllerVenda.RecuperaObjetoNavegacao(opcao, codigoAtual);
+        
+        /*
+        ctrlItensVenda controllerItens = new ctrlItensVenda();
+        ArrayList<ItensVenda> Itens = new ArrayList<>();
+        
+        int idVenda = 1;
+        while(controllerItens.RecuperaObjetoParaExcluir(idVenda).getCodigoVenda()
+                        == Integer.parseInt(txtCodigo.getText())){
+            Itens.add(controllerItens.RecuperaObjetoParaExcluir(idVenda));
+        }
 
+        PreencherTelaComItensRecuperados(Itens);*/
         PreencherTelaComObjetoRecuperado(Registro);
         txtCodigoCliente.requestFocus();
 
         setStatusRegistro(ABERTO);
     }
-    
-    private Vector PegaColunasDaGrade(){
+
+    private Vector PegaColunasDaGrade() {
         Vector<String> ColunasTabela = new Vector<>();
+        ColunasTabela.add("");
+
         ColunasTabela.add("CÓD. PRODUTO");
+        ColunasTabela.add("NOME");
         ColunasTabela.add("QUANTIDADE");
         ColunasTabela.add("VALOR UNITÁRIO");
         ColunasTabela.add("TOTAL");
-        
+
         return ColunasTabela;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,12 +209,12 @@ public class vCadVenda extends javax.swing.JDialog {
         txtValorUnitario = new javax.swing.JTextField();
         btnRemover = new javax.swing.JButton();
         btnAdicionar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblItens = new javax.swing.JTable();
         labTotal = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblItens = new javax.swing.JTable();
         botao = new java.awt.Panel();
-        btnNovo = new java.awt.Button();
+        btnIncluir = new java.awt.Button();
         btnSalvar = new java.awt.Button();
         btnCancelar = new java.awt.Button();
         btnExcluir = new java.awt.Button();
@@ -426,27 +469,6 @@ public class vCadVenda extends javax.swing.JDialog {
             }
         });
 
-        tblItens.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "CÓD. PRODUTO", "NOME", "QUANTIDADE", "VALOR UNITÁRIO", "TOTAL"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblItens);
-
         labTotal.setText("Total");
         labTotal.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -460,6 +482,19 @@ public class vCadVenda extends javax.swing.JDialog {
 
         jLabel11.setText("Total do Pedido:");
 
+        tblItens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblItens);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -467,9 +502,12 @@ public class vCadVenda extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labTotal)
+                        .addGap(86, 86, 86))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -477,30 +515,30 @@ public class vCadVenda extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCodProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                    .addComponent(txtQuantidadeProduto))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtCodProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                            .addComponent(txtQuantidadeProduto))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(18, 18, Short.MAX_VALUE)
+                                                .addComponent(btnPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtNomeProduto))))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(18, 18, Short.MAX_VALUE)
-                                        .addComponent(btnPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnAdicionar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnAdicionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRemover)))
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labTotal)
-                        .addGap(86, 86, 86))))
+                                        .addComponent(btnRemover)))
+                                .addGap(31, 31, 31))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,9 +559,9 @@ public class vCadVenda extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
                     .addComponent(btnRemover))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(labTotal))
@@ -547,10 +585,10 @@ public class vCadVenda extends javax.swing.JDialog {
 
         botao.setBackground(new java.awt.Color(0, 200, 0));
 
-        btnNovo.setLabel("Incluir");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnIncluir.setLabel("Incluir");
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnIncluirActionPerformed(evt);
             }
         });
 
@@ -589,7 +627,7 @@ public class vCadVenda extends javax.swing.JDialog {
             botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botaoLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
@@ -609,7 +647,7 @@ public class vCadVenda extends javax.swing.JDialog {
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -656,9 +694,9 @@ public class vCadVenda extends javax.swing.JDialog {
         new vPesqVenda(null, true, this).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
         setStatusRegistro(INSERCAO);
-    }//GEN-LAST:event_btnNovoActionPerformed
+    }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         if (statusRegistro == INSERCAO) {
@@ -680,18 +718,17 @@ public class vCadVenda extends javax.swing.JDialog {
         if (txtCodigoCliente.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o cliente!");
         } else if (txtCodigoVendedor.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o usuário!");
+            JOptionPane.showMessageDialog(null, "Informe o vendedor!");
         } else {
-
             int codigoAtual = Integer.parseInt(txtCodigo.getText());
 
             ArrayList<String> Registro = new ArrayList<>();
             Registro.add(txtCodigo.getText());
             Registro.add(txtCodigoCliente.getText());
             Registro.add(txtCodigoVendedor.getText());
+            Registro.add(labTotal.getText());
             Registro.add(txtDataCompra.getText());
             Registro.add(txtDataPagamento.getText());
-            Registro.add(labTotal.getText());
             Registro.add(txtMetodoDePagamento.getText());
 
             int codigoNovo = 0;
@@ -704,10 +741,21 @@ public class vCadVenda extends javax.swing.JDialog {
 
                 for (int i = 0; i < objTabela.getRowCount(); i++) {
                     ArrayList<String> RegistroItem = new ArrayList<String>();
+                    //0 - ID (ItensVenda) 
+                    RegistroItem.add(String.valueOf(PegaProximoCodigo()));
+                    //1 - ID_VENDA
                     RegistroItem.add(txtCodigo.getText());
+                    //2 - ID_PRODUTO
                     RegistroItem.add(objTabela.getValueAt(i, 1).toString());
+                    //3 - NOME_PRODUTO
+                    RegistroItem.add(objTabela.getValueAt(i, 2).toString());
+                    //4 - QUANTIDADE
                     RegistroItem.add(objTabela.getValueAt(i, 3).toString());
+                    //5 - VALOR_UNITARIO
+                    RegistroItem.add(objTabela.getValueAt(i, 4).toString());
+                    //6 - VALOR_TOTAL
                     RegistroItem.add(objTabela.getValueAt(i, 5).toString());
+
                     controlePedido.AdicionarItem(RegistroItem);
                 }
             }
@@ -791,10 +839,21 @@ public class vCadVenda extends javax.swing.JDialog {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (statusRegistro == ABERTO) {
-
             int podeExcluir = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?", "Meu Programa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (podeExcluir == 0) {
+                ctrlItensVenda controllerItens = new ctrlItensVenda();
+                int idVenda = 1; // Primeiro ID do ItensVenda
+
+                // Enquanto o ID_VENDA do ItensVenda for igual ao ID da Venda a ser excluida
+                while (controllerItens.RecuperaObjetoParaExcluir(idVenda).getCodigoVenda()
+                        == Integer.parseInt(txtCodigo.getText())) {
+                    //Exclui o ItensVenda
+                    controllerItens.Excluir(idVenda);
+                    idVenda++;
+                }
+
+                //Excluir Venda
                 ctrlVenda controllerVenda = new ctrlVenda();
                 controllerVenda.Excluir(Integer.parseInt(txtCodigo.getText()));
                 setStatusRegistro(FECHADO);
@@ -811,8 +870,9 @@ public class vCadVenda extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Informe a quantidade do produto!");
         } else {
             Vector<String> vetVetor = new Vector<String>();
+            ItensVendaDAO controllerItens = new ItensVendaDAO();
 
-            //vetVetor.addElement("-1");
+            vetVetor.addElement(String.valueOf(controllerItens.PegaProximoCodigo()));
             vetVetor.addElement(txtCodProduto.getText());
             vetVetor.addElement(txtNomeProduto.getText());
             vetVetor.addElement(txtQuantidadeProduto.getText());
@@ -825,12 +885,13 @@ public class vCadVenda extends javax.swing.JDialog {
         }
 
         if (!txtCodigo.getText().equals("0")) {
-            ctrlVenda controleItem = new ctrlVenda();
+            ctrlItensVenda controleItem = new ctrlItensVenda();
             ArrayList<String> registro = new ArrayList<String>();
             registro.add(txtCodigo.getText());
             registro.add(txtCodProduto.getText());
             registro.add(txtQuantidadeProduto.getText());
             registro.add(String.valueOf(valorTotal));
+            registro.add(txtNomeProduto.getText());
             controleItem.AdicionarItem(registro);
         }
 
@@ -841,9 +902,10 @@ public class vCadVenda extends javax.swing.JDialog {
         txtQuantidadeProduto.setText("");
         txtValorUnitario.setText("");
 
-        if (!btnCancelar.isEnabled())
+        if (!btnCancelar.isEnabled()) {
             TrocaEstadoBotao(0);
-        
+        }
+
         /*Vector<String> vColunas = new Vector<>();
         vColunas = PegaColunasDaGrade();
         
@@ -934,14 +996,14 @@ public class vCadVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCodigoClienteFocusLost
 
     private void labTotalAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_labTotalAncestorAdded
-        
+
     }//GEN-LAST:event_labTotalAncestorAdded
-    
+
     private void TrocaEstadoBotao(int iTagBotao) {
         Component[] c;
         switch (iTagBotao) {
             case 0:
-                btnNovo.setEnabled(false);
+                btnIncluir.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 btnSalvar.setEnabled(true);
                 btnCancelar.setEnabled(true);
@@ -953,7 +1015,7 @@ public class vCadVenda extends javax.swing.JDialog {
                 }
                 break;
             case 1:
-                btnNovo.setEnabled(true);
+                btnIncluir.setEnabled(true);
                 btnExcluir.setEnabled(true);
                 btnSalvar.setEnabled(false);
                 btnCancelar.setEnabled(false);
@@ -1025,7 +1087,7 @@ public class vCadVenda extends javax.swing.JDialog {
     private java.awt.Button btnAnterior;
     private java.awt.Button btnCancelar;
     private java.awt.Button btnExcluir;
-    private java.awt.Button btnNovo;
+    private java.awt.Button btnIncluir;
     private java.awt.Button btnPesquisar;
     private javax.swing.JButton btnPesquisarProduto;
     private java.awt.Button btnPrimeiro;
@@ -1042,7 +1104,7 @@ public class vCadVenda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labTotal;
     private javax.swing.JLabel lbID;

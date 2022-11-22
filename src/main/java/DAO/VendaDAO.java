@@ -132,10 +132,10 @@ public class VendaDAO {
                 vendaRecuperada.setCodigo(resultado.getInt("ID"));
                 vendaRecuperada.setIdCliente(resultado.getInt("ID_CLIENTE"));
                 vendaRecuperada.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
-                vendaRecuperada.setValor(resultado.getDouble("VALOR"));
                 vendaRecuperada.setDataCompra(resultado.getString("DATA_COMPRA"));
                 vendaRecuperada.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
                 vendaRecuperada.setMetodoDePagamento(resultado.getString("METODO_PAGAMENTO"));
+                vendaRecuperada.setValor(resultado.getDouble("VALOR"));
             }
             
         } catch (SQLException e) {

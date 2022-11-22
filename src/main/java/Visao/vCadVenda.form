@@ -390,12 +390,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jScrollPane1" pref="649" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="labTotal" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -404,39 +407,41 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtCodProduto" pref="77" max="32767" attributes="1"/>
-                                              <Component id="txtQuantidadeProduto" max="32767" attributes="1"/>
-                                          </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jScrollPane2" min="-2" pref="470" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txtValorUnitario" min="-2" pref="48" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txtCodProduto" pref="77" max="32767" attributes="1"/>
+                                                      <Component id="txtQuantidadeProduto" max="32767" attributes="1"/>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace pref="165" max="32767" attributes="0"/>
+                                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="txtValorUnitario" min="-2" pref="48" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                                                          <Component id="btnPesquisarProduto" min="-2" pref="25" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="txtNomeProduto" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace type="separate" max="32767" attributes="0"/>
-                                                  <Component id="btnPesquisarProduto" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="btnAdicionar" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txtNomeProduto" pref="427" max="32767" attributes="0"/>
+                                                  <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="btnAdicionar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="labTotal" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -464,9 +469,9 @@
                               <Component id="btnAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnRemover" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="67" max="32767" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="79" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labTotal" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -531,28 +536,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarActionPerformed"/>
                   </Events>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTable" name="tblItens">
-                      <Properties>
-                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="5" rowCount="4">
-                            <Column editable="true" title="C&#xd3;D. PRODUTO" type="java.lang.Integer"/>
-                            <Column editable="true" title="NOME" type="java.lang.String"/>
-                            <Column editable="true" title="QUANTIDADE" type="java.lang.Integer"/>
-                            <Column editable="true" title="VALOR UNIT&#xc1;RIO" type="java.lang.Double"/>
-                            <Column editable="true" title="TOTAL" type="java.lang.Double"/>
-                          </Table>
-                        </Property>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
                 <Component class="javax.swing.JLabel" name="labTotal">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Total"/>
@@ -566,6 +549,27 @@
                     <Property name="text" type="java.lang.String" value="Total do Pedido:"/>
                   </Properties>
                 </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="tblItens">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="4" rowCount="4">
+                            <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                            <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -584,7 +588,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnIncluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                   <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
@@ -606,7 +610,7 @@
                       <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnIncluir" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -614,12 +618,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.Button" name="btnNovo">
+        <Component class="java.awt.Button" name="btnIncluir">
           <Properties>
             <Property name="label" type="java.lang.String" value="Incluir"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncluirActionPerformed"/>
           </Events>
         </Component>
         <Component class="java.awt.Button" name="btnSalvar">

@@ -4,6 +4,7 @@ import DAO.ItensVendaDAO;
 import java.util.ArrayList;
 
 public class ItensVenda {
+
     private int id;
     private int idVenda;
     private int idProduto;
@@ -12,7 +13,7 @@ public class ItensVenda {
     private double valorTotal;
     private String nomeProduto;
 
-    public ItensVenda(){
+    public ItensVenda() {
         this.id = -1;
         this.idVenda = -1;
         this.idProduto = -1;
@@ -77,27 +78,40 @@ public class ItensVenda {
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
-    
-    public void Salvar(){
+
+    public void setProximoCodigo() {
+        this.id = ItensVendaDAO.PegaProximoCodigo();
+    }
+
+    public void Salvar() {
         ItensVendaDAO.Salvar(this);
     }
-    
-    public void Excluir(int iCod){
+
+    public void Excluir(int iCod) {
         ItensVendaDAO.Excluir(iCod);
     }
-    
-    public static ArrayList<ItensVenda> RecuperaObjetos(int iCod){
+
+    public static ArrayList<ItensVenda> RecuperaObjetos(int iCod) {
         return ItensVendaDAO.RecuperaObjetos(iCod);
     }
-    
-    public static boolean RecuperaObjeto(int iCod){
+
+    public static ItensVenda RecuperaObjetoParaExcluir(int iCod) {
+        return ItensVendaDAO.RecuperaObjetoParaExcluir(iCod);
+    }
+
+    public static boolean RecuperaObjeto(int iCod) {
         return ItensVendaDAO.RecuperaObjeto(iCod);
     }
-    
-    public void Atualizar(){
+
+    /*public static ItensVenda RecuperaObjetoNavegacao(int Opcao, int CodAtual) {
+        int CodigoNav = ItensVendaDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
+        RecuperaObjeto(CodigoNav);
+    }*/
+
+    public void Atualizar() {
         ItensVendaDAO.Atualizar(this);
     }
-    
+
     /*public ArrayList<ItensVenda> RecuperaObjetos(String pCampo, String pValor){
         String nomeCampo = "";
         

@@ -93,10 +93,10 @@ public class vCadProduto extends javax.swing.JDialog {
         if (!Registro.get(0).equals("-1")){
             txtCodigo.setText(Registro.get(0));
             txtNome.setText(Registro.get(1));
-            txtPreco.setText(Registro.get(3));
-            txtTipo.setText(Registro.get(4));
-            txtDescricao.setText(Registro.get(5));
-            //spinEstoque.setSelectedItem(Registro.get(6));
+            txtTipo.setText(Registro.get(2));
+            txtDescricao.setText(Registro.get(3));
+            txtPreco.setText(Registro.get(4));
+            spinEstoque.setValue(Registro.get(5));
         }
     }
     
@@ -105,8 +105,7 @@ public class vCadProduto extends javax.swing.JDialog {
         int codigoAtual = Integer.parseInt(txtCodigo.getText());
         
         ctrlProduto controllerProduto = new ctrlProduto();
-        ArrayList<String> Registro = controllerProduto.RecuperaObjetoNavegacao(opcao, 
-                codigoAtual);
+        ArrayList<String> Registro = controllerProduto.RecuperaObjetoNavegacao(opcao, codigoAtual);
         
         PreencherTelaComObjetoRecuperado(Registro);
         txtNome.requestFocus();
