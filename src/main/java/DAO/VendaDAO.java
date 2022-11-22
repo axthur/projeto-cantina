@@ -221,7 +221,7 @@ public class VendaDAO {
                 Venda VendaTemp = new Venda();
                 VendaTemp.setCodigo(resultado.getInt("ID"));
                 VendaTemp.setIdCliente(resultado.getInt("ID_CLIENTE"));
-                VendaTemp.setIdVendedor(resultado.getInt("ID_venda"));
+                VendaTemp.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
                 VendaTemp.setValor(resultado.getDouble("VALOR"));
                 VendaTemp.setDataCompra(resultado.getString("DATA_COMPRA"));
                 VendaTemp.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
@@ -261,7 +261,7 @@ public class VendaDAO {
         Statement consulta = null;
         ResultSet resultado = null;
         
-        String sql = "select * from venda where " + pCampo + " like '%" + pValor + "'%";
+        String sql = "select * from venda where " + pCampo + " like '%" + pValor + "%'";
         
         try{
             consulta = conexao.createStatement();

@@ -75,7 +75,7 @@ public class ItensVendaDAO {
         
         PreparedStatement excluiSt = null;
         
-        String sql = "delete from itens_venda where id = " + iCod;
+        String sql = "delete from itens_venda where ID = " + iCod;
         
         try{
             excluiSt = conexao.prepareStatement(sql);
@@ -89,6 +89,35 @@ public class ItensVendaDAO {
                 conexao.close();
             }catch(Throwable e){
                 JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão: " + e);
+            }
+        }
+    }
+    
+    //Atualizar(): ALTERA O REGISTRO NO BANCO DE DADOS
+    public static void Atualizar(ItensVenda itensVenda){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        PreparedStatement atualizaSt = null;
+        
+        String sql = "update itens_venda set ID = ?, ID_VENDA = ?, ID_PRODUTO = ?, QUANTIDADE = ?, VALOR_UNITARIO = ? where VALOR_TOTAL = ?";
+        
+        try {
+            atualizaSt = conexao.prepareStatement(sql);
+            atualizaSt.setInt(1, itensVenda.getCodigo());
+            atualizaSt.setInt(2, itensVenda.getCodigoVenda());
+            atualizaSt.setInt(3, itensVenda.getCodigoProduto());
+            atualizaSt.setInt(4, itensVenda.getQuantidade());
+            atualizaSt.setDouble(5, itensVenda.getValorUnitario());
+            atualizaSt.setDouble(6, itensVenda.getValorTotal());
+            atualizaSt.executeUpdate();            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar itensVenda: " + e.getMessage());
+        } finally {
+            try {
+                atualizaSt.close();
+                conexao.close(); 
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão na função Atualizar(): " + e.getMessage());
             }
         }
     }

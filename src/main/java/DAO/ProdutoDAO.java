@@ -87,16 +87,16 @@ public class ProdutoDAO {
         
         PreparedStatement insereSt = null;
         
-        String sql = "insert produto (ID, NOME, TIPO, DESCRICAO, PREÇO, ESTOQUE  values (?,?,?,?,?,?,?)";
+        String sql = "insert produto (ID, NOME, TIPO, DESCRICAO, PRECO, ESTOQUE)  values (?,?,?,?,?,?)";
         
         try {            
             insereSt = conexao.prepareStatement(sql);
             insereSt.setInt(1, produto.getCodigo());
             insereSt.setString(2, produto.getNome());
-            insereSt.setString(4, produto.getTipo());
-            insereSt.setString(5, produto.getDescricao());
-            insereSt.setDouble(6, produto.getPreco());
-            insereSt.setInt(7, produto.getEstoque());
+            insereSt.setString(3, produto.getTipo());
+            insereSt.setString(4, produto.getDescricao());
+            insereSt.setDouble(5, produto.getPreco());
+            insereSt.setInt(6, produto.getEstoque());
             insereSt.executeUpdate();            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto: " + e.getMessage());
@@ -210,7 +210,7 @@ public class ProdutoDAO {
         Statement consulta = null;
         ResultSet resultado = null;
         
-        String sql = "select * from produto where " + pCampo + " like '%" + pValor + "'%";
+        String sql = "select * from produto where " + pCampo + " like '%" + pValor + "%'";
         
         try{
             consulta = conexao.createStatement();

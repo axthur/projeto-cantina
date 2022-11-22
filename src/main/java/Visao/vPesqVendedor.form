@@ -107,13 +107,13 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jComboBox6" min="-2" pref="77" max="-2" attributes="0"/>
+                  <Component id="cmbOpcoesPesquisa" min="-2" pref="77" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="lbID5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtID5" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Component id="txtConteudo" min="-2" pref="122" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -123,14 +123,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton6" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPesquisar" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="lbID5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtConteudo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbOpcoesPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                              <Component id="lbID5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtID5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -145,14 +145,14 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox6">
+        <Component class="javax.swing.JComboBox" name="cmbOpcoesPesquisa">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="6">
                 <StringItem index="0" value="C&#xf3;digo"/>
                 <StringItem index="1" value="Nome"/>
                 <StringItem index="2" value="Telefone"/>
-                <StringItem index="3" value="Email"/>
+                <StringItem index="3" value="E-mail"/>
                 <StringItem index="4" value="Endere&#xe7;o"/>
                 <StringItem index="5" value="Carga hor&#xe1;ria"/>
               </StringArray>
@@ -168,12 +168,15 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtID5">
+        <Component class="javax.swing.JTextField" name="txtConteudo">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="btnPesquisar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pesquisar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -212,16 +215,16 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblResultado">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="true" title="ID" type="java.lang.Integer"/>
+                    <Column editable="true" title="C&#xd3;DIGO" type="java.lang.Integer"/>
                     <Column editable="true" title="NOME" type="java.lang.String"/>
                     <Column editable="true" title="TELEFONE" type="java.lang.String"/>
-                    <Column editable="true" title="EMAIL" type="java.lang.String"/>
-                    <Column editable="true" title="ENDERECO" type="java.lang.String"/>
-                    <Column editable="true" title="CARGA_HORARIA" type="java.lang.Integer"/>
+                    <Column editable="true" title="E-MAIL" type="java.lang.String"/>
+                    <Column editable="true" title="ENDERE&#xc7;O" type="java.lang.String"/>
+                    <Column editable="true" title="CARGA HOR&#xc1;RIA" type="java.lang.Integer"/>
                   </Table>
                 </Property>
               </Properties>
@@ -242,9 +245,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
-                  <Component id="button3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConfirmar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="51" max="32767" attributes="0"/>
-                  <Component id="button4" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -254,8 +257,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="button4" min="-2" max="-2" attributes="0"/>
-                      <Component id="button3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnConfirmar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -263,15 +266,21 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.Button" name="button3">
+        <Component class="java.awt.Button" name="btnConfirmar">
           <Properties>
             <Property name="label" type="java.lang.String" value="Confirmar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.Button" name="button4">
+        <Component class="java.awt.Button" name="btnCancelar">
           <Properties>
             <Property name="label" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

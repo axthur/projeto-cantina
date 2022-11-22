@@ -4,7 +4,10 @@
  */
 package Visao;
 
+import Controle.ctrlProduto;
+import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class vPesqProduto extends javax.swing.JDialog {
@@ -18,13 +21,25 @@ public class vPesqProduto extends javax.swing.JDialog {
     public vPesqProduto(java.awt.Frame parent, boolean modal, vCadProduto telaProduto, vCadVenda telaPedido) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.TelaProduto = telaProduto;
         this.TelaPedido = telaPedido;
         
         DefaultTableModel MinhaTabela = new DefaultTableModel(PegaColunasDaGrade(), 0);
-        jTable1.setModel(MinhaTabela);
+        tblResultado.setModel(MinhaTabela);
     }
-
+    
+    private Vector PegaColunasDaGrade(){
+        Vector<String> ColunasTabela = new Vector<String>();
+        ColunasTabela.add("CÓDIGO");
+        ColunasTabela.add("NOME");
+        ColunasTabela.add("TIPO");
+        ColunasTabela.add("DESCRIÇÃO");
+        ColunasTabela.add("PREÇO");
+        ColunasTabela.add("ESTOQUE");
+                
+        return ColunasTabela;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,18 +56,18 @@ public class vPesqProduto extends javax.swing.JDialog {
         panel3 = new java.awt.Panel();
         navegacao = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbOpcoesPesquisa = new javax.swing.JComboBox<>();
         lbID = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtConteudo = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
         conteudo = new java.awt.Panel();
         textField2 = new java.awt.TextField();
         textField3 = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblResultado = new javax.swing.JTable();
         botao = new java.awt.Panel();
-        button3 = new java.awt.Button();
-        button4 = new java.awt.Button();
+        btnConfirmar = new java.awt.Button();
+        btnCancelar = new java.awt.Button();
 
         button2.setLabel("button2");
 
@@ -73,12 +88,17 @@ public class vPesqProduto extends javax.swing.JDialog {
         jLabel1.setText("Opções de Pesquisa:");
         jLabel1.setToolTipText("");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Tipo", "Preço" }));
+        cmbOpcoesPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Tipo", "Preço" }));
 
         lbID.setText("Critério de Pesquisa:");
         lbID.setToolTipText("");
 
-        jButton1.setText("Pesquisar");
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout navegacaoLayout = new javax.swing.GroupLayout(navegacao);
         navegacao.setLayout(navegacaoLayout);
@@ -88,13 +108,13 @@ public class vPesqProduto extends javax.swing.JDialog {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbOpcoesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(lbID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnPesquisar)
                 .addGap(33, 33, 33))
         );
         navegacaoLayout.setVerticalGroup(
@@ -104,11 +124,11 @@ public class vPesqProduto extends javax.swing.JDialog {
                 .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbID)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbOpcoesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
-                        .addComponent(jButton1)))
+                        .addComponent(btnPesquisar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -116,7 +136,7 @@ public class vPesqProduto extends javax.swing.JDialog {
 
         textField3.setText("textField3");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -124,7 +144,7 @@ public class vPesqProduto extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "NOME", "TIPO", "DESCRICAO", "PRECO", "ESTOQUE"
+                "CÓDIGO", "NOME", "TIPO", "DESCRIÇÃO", "PREÇO", "ESTOQUE"
             }
         ) {
             Class[] types = new Class [] {
@@ -135,7 +155,7 @@ public class vPesqProduto extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblResultado);
 
         javax.swing.GroupLayout conteudoLayout = new javax.swing.GroupLayout(conteudo);
         conteudo.setLayout(conteudoLayout);
@@ -152,9 +172,19 @@ public class vPesqProduto extends javax.swing.JDialog {
 
         botao.setBackground(new java.awt.Color(0, 200, 0));
 
-        button3.setLabel("Confirmar");
+        btnConfirmar.setLabel("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
-        button4.setLabel("Cancelar");
+        btnCancelar.setLabel("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout botaoLayout = new javax.swing.GroupLayout(botao);
         botao.setLayout(botaoLayout);
@@ -162,9 +192,9 @@ public class vPesqProduto extends javax.swing.JDialog {
             botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botaoLayout.createSequentialGroup()
                 .addGap(233, 233, 233)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(246, 246, 246))
         );
         botaoLayout.setVerticalGroup(
@@ -172,8 +202,8 @@ public class vPesqProduto extends javax.swing.JDialog {
             .addGroup(botaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -217,17 +247,40 @@ public class vPesqProduto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private Vector PegaColunasDaGrade(){
-        Vector<String> ColunasTabela = new Vector<String>();
-        ColunasTabela.add("Código");
-        ColunasTabela.add("Nome");
-        ColunasTabela.add("Tipo");
-        ColunasTabela.add("Descrição");
-        ColunasTabela.add("Preço");
-        ColunasTabela.add("Estoque");
-                
-        return ColunasTabela;
-    }
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        ArrayList<String> Parametros = new ArrayList<>();
+        Parametros.add(cmbOpcoesPesquisa.getSelectedItem().toString());
+        Parametros.add(txtConteudo.getText().toUpperCase());
+        
+        Vector<String> vColunas = new Vector<>();
+        vColunas = PegaColunasDaGrade();
+        
+        DefaultTableModel objTabela = new DefaultTableModel(vColunas, 0);
+        
+        ctrlProduto controller = new ctrlProduto();
+        objTabela = controller.PesquisaObjeto(Parametros, objTabela);
+        
+        tblResultado.setModel(objTabela);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        int Linha = tblResultado.getSelectedRow();
+        
+        if(Linha == 1)
+            JOptionPane.showMessageDialog(rootPane, "Selecione o registro desejado.");
+        else{
+            int Codigo = Integer.parseInt(tblResultado.getValueAt(Linha, 0).toString());
+            this.TelaProduto.setRetornoConsulta(Codigo);
+            this.setVisible(false);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+            this.setVisible(false);
+            this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -282,23 +335,23 @@ public class vPesqProduto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Panel botao;
+    private java.awt.Button btnCancelar;
+    private java.awt.Button btnConfirmar;
+    private javax.swing.JButton btnPesquisar;
     private java.awt.Button button2;
-    private java.awt.Button button3;
-    private java.awt.Button button4;
     private java.awt.Button button7;
+    private javax.swing.JComboBox<String> cmbOpcoesPesquisa;
     private java.awt.Panel conteudo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbID;
     private java.awt.Panel navegacao;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
+    private javax.swing.JTable tblResultado;
     private java.awt.TextField textField2;
     private java.awt.TextField textField3;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtConteudo;
     // End of variables declaration//GEN-END:variables
 }

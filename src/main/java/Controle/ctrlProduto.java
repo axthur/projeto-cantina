@@ -2,6 +2,8 @@ package Controle;
 
 import Modelo.Produto;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class ctrlProduto {
     private final Produto objProduto;
@@ -25,7 +27,6 @@ public class ctrlProduto {
         ArrayList<String> vetCampos = new ArrayList<>();
         vetCampos.add(String.valueOf(this.objProduto.getCodigo()));
         vetCampos.add(this.objProduto.getNome());
-        vetCampos.add(String.valueOf(this.objProduto.getCodigo()));
         vetCampos.add(this.objProduto.getTipo());
         vetCampos.add(this.objProduto.getDescricao());
         vetCampos.add(String.valueOf(this.objProduto.getPreco()));
@@ -58,5 +59,31 @@ public class ctrlProduto {
     public void Excluir(int Chave){
         this.objProduto.setCodigo(Chave);
         this.objProduto.Excluir(Chave);
+    }
+    
+    public DefaultTableModel PesquisaObjeto(ArrayList<String> Parametros, DefaultTableModel ModeloTabela){
+        String Campo = Parametros.get(0);
+        String Valor = Parametros.get(1);
+         
+        ArrayList<Produto> Produtos = this.objProduto.RecuperaObjetos(Campo, Valor);
+        
+        Vector<String> vetVetor;
+        Produto objProdutoBuffer;
+        
+        for(int i = 0; i < Produtos.size(); i++){
+            vetVetor = new Vector<String>();
+            objProdutoBuffer = Produtos.get(i);
+            
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getCodigo()));
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getNome()));
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getTipo()));
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getDescricao()));
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getPreco()));
+            vetVetor.addElement(String.valueOf(objProdutoBuffer.getEstoque()));
+            
+            ModeloTabela.addRow(vetVetor);
+        }
+        
+        return ModeloTabela;
     }
 }

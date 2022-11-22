@@ -1,6 +1,7 @@
 package Modelo;
 
 import DAO.ProdutoDAO;
+import java.util.ArrayList;
 
 public class Produto {
     private int id;
@@ -82,10 +83,10 @@ public class Produto {
     public void Excluir(int Chave){
         ProdutoDAO.Excluir(Chave);
     }
-    
-    
+        
     public void RecuperaObjeto(int Codigo){
         Produto clienteTemp = ProdutoDAO.RecuperarProduto(Codigo);
+        
         this.setCodigo(clienteTemp.getCodigo());
         this.setNome(clienteTemp.getNome());
         this.setTipo(clienteTemp.getTipo());
@@ -93,8 +94,25 @@ public class Produto {
         this.setPreco(clienteTemp.getPreco());
         this.setEstoque(clienteTemp.getEstoque());
     }
+    
     public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
         int CodigoNav = ProdutoDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
         RecuperaObjeto(CodigoNav);
+    }
+    
+    public ArrayList<Produto> RecuperaObjetos(String pCampo, String pValor){
+        String nomeCampo = "";
+        
+        if(pCampo.equalsIgnoreCase("Código")){
+            nomeCampo = "ID";
+        }else if(pCampo.equalsIgnoreCase("Nome")){
+            nomeCampo = "NOME";
+        }else if(pCampo.equalsIgnoreCase("Tipo")){
+            nomeCampo = "TIPO";
+        }else if(pCampo.equalsIgnoreCase("Preço")){
+            nomeCampo = "PRECO";
+        }
+        
+        return ProdutoDAO.RecuperaObjetos(nomeCampo, pValor);
     }
 }

@@ -11,7 +11,19 @@ public class vCadVendedor extends javax.swing.JDialog {
     private static final int EDICAO = 2;
     
     private static int statusRegistro;
-
+    
+    private int RetornoConsulta;
+    
+    public int getRetornoConsulta(){
+        return this.RetornoConsulta;
+    }
+    
+    public void setRetornoConsulta(int RetornoConsulta){
+        this.RetornoConsulta = RetornoConsulta;
+        this.txtCodigo.setText(String.valueOf(RetornoConsulta));
+        this.txtNome.requestFocus();
+        txtCodigoFocusLost(null);
+    }
     /**
      * Creates new form vCadastroFuncionario
      */
@@ -71,12 +83,10 @@ public class vCadVendedor extends javax.swing.JDialog {
     }
     
     private void navegarEntreRegistros(int opcao){
-        
         int codigoAtual = Integer.parseInt(txtCodigo.getText());
         
         ctrlVendedor controllerVendedor = new ctrlVendedor();
-        ArrayList<String> Registro = controllerVendedor.RecuperaObjetoNavegacao(opcao, 
-                codigoAtual);
+        ArrayList<String> Registro = controllerVendedor.RecuperaObjetoNavegacao(opcao, codigoAtual);
         
         PreencherTelaComObjetoRecuperado(Registro);
         txtNome.requestFocus();
@@ -460,7 +470,7 @@ public class vCadVendedor extends javax.swing.JDialog {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new vPesqVendedor(null, true).setVisible(true);
+        new vPesqVendedor(null, true, this).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed

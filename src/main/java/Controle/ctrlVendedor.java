@@ -2,6 +2,8 @@ package Controle;
 
 import Modelo.Vendedor;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class ctrlVendedor {
     private final Vendedor objVendedor;
@@ -60,5 +62,31 @@ public class ctrlVendedor {
     public void Excluir(int Chave){
         this.objVendedor.setCodigo(Chave);
         this.objVendedor.Excluir(Chave);
+    }
+    
+    public DefaultTableModel PesquisaObjeto(ArrayList<String> Parametros, DefaultTableModel ModeloTabela){
+        String Campo = Parametros.get(0);
+        String Valor = Parametros.get(1);
+         
+        ArrayList<Vendedor> Vendedores = this.objVendedor.RecuperaObjetos(Campo, Valor);
+        
+        Vector<String> vetVetor;
+        Vendedor objVendedorBuffer;
+        
+        for(int i = 0; i < Vendedores.size(); i++){
+            vetVetor = new Vector<String>();
+            objVendedorBuffer = Vendedores.get(i);
+            
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getCodigo()));
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getNome()));
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getTelefone()));
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getEmail()));
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getEndereco()));
+            vetVetor.addElement(String.valueOf(objVendedorBuffer.getCargaHoraria()));
+            
+            ModeloTabela.addRow(vetVetor);
+        }
+        
+        return ModeloTabela;
     }
 }

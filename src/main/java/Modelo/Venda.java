@@ -108,12 +108,13 @@ public class Venda {
         int CodigoNav = VendaDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
         RecuperaObjeto(CodigoNav);
     }
+    
     public ArrayList<Venda> RecuperaObjetos(String pCampo, String pValor, boolean pTodaParte){
         String NomeCampo = "";
         if (pCampo.equals("0"))
-            NomeCampo = "p.CODIGO_PED";
+            NomeCampo = "venda.ID";
         else
-            NomeCampo = "c.NOME_CLI";
+            NomeCampo = "cliente.ID";
         
         return VendaDAO.PesquisaObjeto(NomeCampo, pValor, pTodaParte);
     }

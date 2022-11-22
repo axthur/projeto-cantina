@@ -1,6 +1,7 @@
 package Modelo;
 
 import DAO.VendedorDAO;
+import java.util.ArrayList;
 
 public class Vendedor {
     private int id;
@@ -114,5 +115,25 @@ public class Vendedor {
     public void RecuperaObjetoNavegacao(int Opcao, int CodAtual){
         int CodigoNav = VendedorDAO.PegaCodigoPelaNavegacao(Opcao, CodAtual);
         RecuperaObjeto(CodigoNav);
+    }
+    
+    public ArrayList<Vendedor> RecuperaObjetos(String pCampo, String pValor){
+        String nomeCampo = "";
+        
+        if(pCampo.equalsIgnoreCase("Código")){
+            nomeCampo = "ID";
+        }else if(pCampo.equalsIgnoreCase("Nome")){
+            nomeCampo = "NOME";
+        }else if(pCampo.equalsIgnoreCase("Telefone")){
+            nomeCampo = "TELEFONE";
+        }else if(pCampo.equalsIgnoreCase("E-mail")){
+            nomeCampo = "EMAIL";
+        }else if(pCampo.equalsIgnoreCase("Endereço")){
+            nomeCampo = "ENDERECO";
+        }else if(pCampo.equalsIgnoreCase("Carga horária")){
+            nomeCampo = "CARGA_HORARIA";
+        }
+        
+        return VendedorDAO.RecuperaObjetos(nomeCampo, pValor);
     }
 }

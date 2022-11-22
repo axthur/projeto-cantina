@@ -135,7 +135,7 @@ public class VendedorDAO {
                 vendedorRecuperado.setEmail(resultado.getString("EMAIL"));
                 vendedorRecuperado.setEndereco(resultado.getString("ENDERECO"));
                 vendedorRecuperado.setCargaHoraria(resultado.getInt("CARGA_HORARIA"));
-                vendedorRecuperado.setEndereco(resultado.getString("SENHA"));
+                vendedorRecuperado.setSenha(resultado.getInt("SENHA"));
             }
             
         } catch (SQLException e) {
@@ -214,7 +214,7 @@ public class VendedorDAO {
         Statement consulta = null;
         ResultSet resultado = null;
         
-        String sql = "select * from vendedor where " + pCampo + " like '%" + pValor + "'%";
+        String sql = "select * from vendedor where " + pCampo + " like '%" + pValor + "%'";
         
         try{
             consulta = conexao.createStatement();

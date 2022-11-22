@@ -212,7 +212,7 @@ public class ClienteDAO {
         Statement consulta = null;
         ResultSet resultado = null;
         
-        String sql = "select * from cliente where " + pCampo + " like '%" + pValor + "'%";
+        String sql = "select * from cliente where " + pCampo + " like '%" + pValor + "%'";
         
         try{
             consulta = conexao.createStatement();

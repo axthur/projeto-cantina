@@ -23,6 +23,16 @@ public class vCadVenda extends javax.swing.JDialog {
     private static final int EDICAO = 2;
 
     private static int statusRegistro;
+    
+    public int getRetornoConsulta(){
+        return this.RetornoConsulta;
+    }
+    
+    public void setRetornoConsulta(int RetornoConsulta){
+        this.RetornoConsulta = RetornoConsulta;
+        this.txtCodigo.setText(String.valueOf(RetornoConsulta));
+        txtCodigoFocusLost(null);
+    }
 
     /**
      * Creates new form vCadVenda
@@ -95,7 +105,16 @@ public class vCadVenda extends javax.swing.JDialog {
 
         setStatusRegistro(ABERTO);
     }
-
+    
+    private Vector PegaColunasDaGrade(){
+        Vector<String> ColunasTabela = new Vector<>();
+        ColunasTabela.add("CÓD. PRODUTO");
+        ColunasTabela.add("QUANTIDADE");
+        ColunasTabela.add("VALOR UNITÁRIO");
+        ColunasTabela.add("TOTAL");
+        
+        return ColunasTabela;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -262,6 +281,11 @@ public class vCadVenda extends javax.swing.JDialog {
 
         tblcurso.setText("ID do Cliente:");
 
+        txtCodigoCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoClienteFocusLost(evt);
+            }
+        });
         txtCodigoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoClienteKeyPressed(evt);
@@ -404,18 +428,35 @@ public class vCadVenda extends javax.swing.JDialog {
 
         tblItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CÓD. PRODUTO", "NOME", "QUANTIDADE", "VALOR UNITÁRIO", "TOTAL"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblItens);
 
         labTotal.setText("Total");
+        labTotal.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                labTotalAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabel11.setText("Total do Pedido:");
 
@@ -612,7 +653,7 @@ public class vCadVenda extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new vPesqVenda(null, true).setVisible(true);
+        new vPesqVenda(null, true, this).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -762,7 +803,6 @@ public class vCadVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-
         double valorTotal = 0;
 
         if (txtCodProduto.getText().equals("")) {
@@ -772,7 +812,7 @@ public class vCadVenda extends javax.swing.JDialog {
         } else {
             Vector<String> vetVetor = new Vector<String>();
 
-            vetVetor.addElement("-1");
+            //vetVetor.addElement("-1");
             vetVetor.addElement(txtCodProduto.getText());
             vetVetor.addElement(txtNomeProduto.getText());
             vetVetor.addElement(txtQuantidadeProduto.getText());
@@ -803,6 +843,14 @@ public class vCadVenda extends javax.swing.JDialog {
 
         if (!btnCancelar.isEnabled())
             TrocaEstadoBotao(0);
+        
+        /*Vector<String> vColunas = new Vector<>();
+        vColunas = PegaColunasDaGrade();
+        
+        DefaultTableModel objTabela = new DefaultTableModel(vColunas, 0);
+        ctrlItensVenda controller = new ctrlItensVenda();
+        objTabela = controller.PesquisaObjeto(Parametros, objTabela);*/
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
@@ -880,6 +928,15 @@ public class vCadVenda extends javax.swing.JDialog {
             setStatusRegistro(EDICAO);
         }
     }//GEN-LAST:event_txtCodigoClienteKeyPressed
+
+    private void txtCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoClienteFocusLost
+
+    }//GEN-LAST:event_txtCodigoClienteFocusLost
+
+    private void labTotalAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_labTotalAncestorAdded
+        
+    }//GEN-LAST:event_labTotalAncestorAdded
+    
     private void TrocaEstadoBotao(int iTagBotao) {
         Component[] c;
         switch (iTagBotao) {

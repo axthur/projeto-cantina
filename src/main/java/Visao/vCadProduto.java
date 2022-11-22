@@ -17,6 +17,19 @@ public class vCadProduto extends javax.swing.JDialog {
     private static final int EDICAO = 2;
     
     private static int statusRegistro;
+    
+    private int RetornoConsulta;
+    
+    public int getRetornoConsulta(){
+        return this.RetornoConsulta;
+    }
+    
+    public void setRetornoConsulta(int RetornoConsulta){
+        this.RetornoConsulta = RetornoConsulta;
+        this.txtCodigo.setText(String.valueOf(RetornoConsulta));
+        this.txtNome.requestFocus();
+        txtCodigoFocusLost(null);
+    }
     /**
      * Creates new form vCadastroFuncionario
      */
@@ -243,7 +256,7 @@ public class vCadProduto extends javax.swing.JDialog {
 
         tbltel.setText("Tipo:");
 
-        tblend.setText("Descrição (opcional):");
+        tblend.setText("Descrição:");
 
         tblcurso.setText("Preço:");
 
@@ -295,17 +308,14 @@ public class vCadProduto extends javax.swing.JDialog {
                         .addComponent(tblend)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, conteudoLayout.createSequentialGroup()
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tblcurso)
-                            .addComponent(tblcurso1))
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(conteudoLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(conteudoLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(txtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 241, Short.MAX_VALUE)
+                        .addComponent(tblcurso)
+                        .addGap(17, 17, 17)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tblcurso1)
+                        .addGap(13, 13, 13)
+                        .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
                         .addComponent(tbltel)
                         .addGap(24, 24, 24)
                         .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,16 +345,15 @@ public class vCadProduto extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tblcurso))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tblcurso1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tblcurso)
+                            .addGroup(conteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(spinEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tblcurso1)))))
+                .addGap(18, 18, 18)
                 .addComponent(tblend)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         botao.setBackground(new java.awt.Color(0, 200, 0));
@@ -485,8 +494,7 @@ public class vCadProduto extends javax.swing.JDialog {
         Registro.add(txtTipo.getText());
         Registro.add(txtDescricao.getText());
         Registro.add(txtPreco.getText());
-        //Registro.add(spinEstoque.getSelectedItem().toString());
-        Registro.add("1");
+        Registro.add(String.valueOf(spinEstoque.getComponentCount()));
         
         int codigoNovo = 0;
         ctrlProduto ControllerProduto = new ctrlProduto();

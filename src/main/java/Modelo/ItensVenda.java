@@ -10,6 +10,7 @@ public class ItensVenda {
     private int quantidade;
     private double valorUnitario;
     private double valorTotal;
+    private String nomeProduto;
 
     public ItensVenda(){
         this.id = -1;
@@ -18,6 +19,15 @@ public class ItensVenda {
         this.quantidade = 0;
         this.valorUnitario = 0;
         this.valorTotal = 0;
+        this.nomeProduto = "";
+    }
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public int getCodigo() {
@@ -83,4 +93,24 @@ public class ItensVenda {
     public static boolean RecuperaObjeto(int iCod){
         return ItensVendaDAO.RecuperaObjeto(iCod);
     }
+    
+    public void Atualizar(){
+        ItensVendaDAO.Atualizar(this);
+    }
+    
+    /*public ArrayList<ItensVenda> RecuperaObjetos(String pCampo, String pValor){
+        String nomeCampo = "";
+        
+        if(pCampo.equalsIgnoreCase("Código do Produto")){
+            nomeCampo = "ID_PRODUTO";
+        }else if(pCampo.equalsIgnoreCase("Quantidade")){
+            nomeCampo = "QUANTIDADE";
+        }else if(pCampo.equalsIgnoreCase("Valor unitário")){
+            nomeCampo = "VALOR_UNITARIO";
+        }else if(pCampo.equalsIgnoreCase("Valor total")){
+            nomeCampo = "VALOR_TOTAL";
+        }
+        
+        return ItensVendaDAO.RecuperaObjetos(pValor);
+    }*/
 }

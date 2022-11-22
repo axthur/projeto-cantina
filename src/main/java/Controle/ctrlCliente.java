@@ -2,6 +2,8 @@ package Controle;
 
 import Modelo.Cliente;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class ctrlCliente {
     private final Cliente objCliente;
@@ -57,5 +59,31 @@ public class ctrlCliente {
     public void Excluir(int Chave){
         this.objCliente.setCodigo(Chave);
         this.objCliente.Excluir(Chave);
+    }
+    
+    public DefaultTableModel PesquisaObjeto(ArrayList<String> Parametros, DefaultTableModel ModeloTabela){
+        String Campo = Parametros.get(0);
+        String Valor = Parametros.get(1);
+         
+        ArrayList<Cliente> Clientes = this.objCliente.RecuperaObjetos(Campo, Valor);
+        
+        Vector<String> vetVetor;
+        Cliente objClienteBuffer;
+        
+        for(int i = 0; i < Clientes.size(); i++){
+            vetVetor = new Vector<String>();
+            objClienteBuffer = Clientes.get(i);
+            
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getCodigo()));
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getNome()));
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getTelefone()));
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getEmail()));
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getEndereco()));
+            vetVetor.addElement(String.valueOf(objClienteBuffer.getCurso()));
+            
+            ModeloTabela.addRow(vetVetor);
+        }
+        
+        return ModeloTabela;
     }
 }

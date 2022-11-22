@@ -1,23 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Visao;
 
-/**
- *
- * @author lissa
- */
+import Controle.ctrlVendedor;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class vPesqVendedor extends javax.swing.JDialog {
 
     /**
      * Creates new form vCadastroFuncionario
      */
-    public vPesqVendedor(java.awt.Frame parent, boolean modal) {
+    vCadVendedor TelaPai;
+    
+    public vPesqVendedor(java.awt.Frame parent, boolean modal, vCadVendedor telaPai) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        this.TelaPai = telaPai;
+        
+        DefaultTableModel MinhaTabela = new DefaultTableModel(PegaColunasDaGrade(), 0);
+        tblResultado.setModel(MinhaTabela);
     }
-
+    
+    private Vector PegaColunasDaGrade(){
+        Vector<String> ColunasTabela = new Vector<String>();
+        ColunasTabela.add("CÓDIGO");
+        ColunasTabela.add("NOME");
+        ColunasTabela.add("TELEFONE");
+        ColunasTabela.add("E-MAIL");
+        ColunasTabela.add("ENDEREÇO");
+        ColunasTabela.add("CARGA HORÁRIA");
+                
+        return ColunasTabela;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,18 +50,18 @@ public class vPesqVendedor extends javax.swing.JDialog {
         panel3 = new java.awt.Panel();
         navegacao = new java.awt.Panel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        cmbOpcoesPesquisa = new javax.swing.JComboBox<>();
         lbID5 = new javax.swing.JLabel();
-        txtID5 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        txtConteudo = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
         conteudo = new java.awt.Panel();
         textField2 = new java.awt.TextField();
         textField3 = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblResultado = new javax.swing.JTable();
         botao = new java.awt.Panel();
-        button3 = new java.awt.Button();
-        button4 = new java.awt.Button();
+        btnConfirmar = new java.awt.Button();
+        btnCancelar = new java.awt.Button();
 
         button2.setLabel("button2");
 
@@ -66,12 +82,17 @@ public class vPesqVendedor extends javax.swing.JDialog {
         jLabel6.setText("Opções de Pesquisa:");
         jLabel6.setToolTipText("");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Telefone", "Email", "Endereço", "Carga horária" }));
+        cmbOpcoesPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nome", "Telefone", "E-mail", "Endereço", "Carga horária" }));
 
         lbID5.setText("Critério de Pesquisa:");
         lbID5.setToolTipText("");
 
-        jButton6.setText("Pesquisar");
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout navegacaoLayout = new javax.swing.GroupLayout(navegacao);
         navegacao.setLayout(navegacaoLayout);
@@ -81,13 +102,13 @@ public class vPesqVendedor extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbOpcoesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(lbID5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                .addComponent(btnPesquisar)
                 .addGap(27, 27, 27))
         );
         navegacaoLayout.setVerticalGroup(
@@ -95,13 +116,13 @@ public class vPesqVendedor extends javax.swing.JDialog {
             .addGroup(navegacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6)
+                    .addComponent(btnPesquisar)
                     .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbID5)
-                            .addComponent(txtID5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(lbID5)
+                        .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(navegacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbOpcoesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -109,7 +130,7 @@ public class vPesqVendedor extends javax.swing.JDialog {
 
         textField3.setText("textField3");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -117,7 +138,7 @@ public class vPesqVendedor extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "NOME", "TELEFONE", "EMAIL", "ENDERECO", "CARGA_HORARIA"
+                "CÓDIGO", "NOME", "TELEFONE", "E-MAIL", "ENDEREÇO", "CARGA HORÁRIA"
             }
         ) {
             Class[] types = new Class [] {
@@ -128,7 +149,7 @@ public class vPesqVendedor extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblResultado);
 
         javax.swing.GroupLayout conteudoLayout = new javax.swing.GroupLayout(conteudo);
         conteudo.setLayout(conteudoLayout);
@@ -145,9 +166,19 @@ public class vPesqVendedor extends javax.swing.JDialog {
 
         botao.setBackground(new java.awt.Color(0, 200, 0));
 
-        button3.setLabel("Confirmar");
+        btnConfirmar.setLabel("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
-        button4.setLabel("Cancelar");
+        btnCancelar.setLabel("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout botaoLayout = new javax.swing.GroupLayout(botao);
         botao.setLayout(botaoLayout);
@@ -155,9 +186,9 @@ public class vPesqVendedor extends javax.swing.JDialog {
             botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botaoLayout.createSequentialGroup()
                 .addGap(235, 235, 235)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(244, 244, 244))
         );
         botaoLayout.setVerticalGroup(
@@ -165,8 +196,8 @@ public class vPesqVendedor extends javax.swing.JDialog {
             .addGroup(botaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(botaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -209,6 +240,39 @@ public class vPesqVendedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        ArrayList<String> Parametros = new ArrayList<>();
+        Parametros.add(cmbOpcoesPesquisa.getSelectedItem().toString());
+        Parametros.add(txtConteudo.getText().toUpperCase());
+        
+        Vector<String> vColunas = new Vector<>();
+        vColunas = PegaColunasDaGrade();
+        
+        DefaultTableModel objTabela = new DefaultTableModel(vColunas, 0);
+        
+        ctrlVendedor controller = new ctrlVendedor();
+        objTabela = controller.PesquisaObjeto(Parametros, objTabela);
+        
+        tblResultado.setModel(objTabela);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        int Linha = tblResultado.getSelectedRow();
+        
+        if(Linha == 1)
+            JOptionPane.showMessageDialog(rootPane, "Selecione o registro desejado.");
+        else{
+            int Codigo = Integer.parseInt(tblResultado.getValueAt(Linha, 0).toString());
+            this.TelaPai.setRetornoConsulta(Codigo);
+            this.setVisible(false);
+            this.dispose();
+        }    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+            this.setVisible(false);
+            this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -241,7 +305,7 @@ public class vPesqVendedor extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                vPesqVendedor dialog = new vPesqVendedor(new javax.swing.JFrame(), true);
+                vPesqVendedor dialog = new vPesqVendedor(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -255,23 +319,23 @@ public class vPesqVendedor extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Panel botao;
+    private java.awt.Button btnCancelar;
+    private java.awt.Button btnConfirmar;
+    private javax.swing.JButton btnPesquisar;
     private java.awt.Button button2;
-    private java.awt.Button button3;
-    private java.awt.Button button4;
     private java.awt.Button button7;
+    private javax.swing.JComboBox<String> cmbOpcoesPesquisa;
     private java.awt.Panel conteudo;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbID5;
     private java.awt.Panel navegacao;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
+    private javax.swing.JTable tblResultado;
     private java.awt.TextField textField2;
     private java.awt.TextField textField3;
-    private javax.swing.JTextField txtID5;
+    private javax.swing.JTextField txtConteudo;
     // End of variables declaration//GEN-END:variables
 }

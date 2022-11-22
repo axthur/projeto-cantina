@@ -16,6 +16,19 @@ public class vCadCliente extends javax.swing.JDialog {
     
     private static int statusRegistro;
     
+    private int RetornoConsulta;
+    
+    public int getRetornoConsulta(){
+        return this.RetornoConsulta;
+    }
+    
+    public void setRetornoConsulta(int RetornoConsulta){
+        this.RetornoConsulta = RetornoConsulta;
+        this.txtCodigo.setText(String.valueOf(RetornoConsulta));
+        this.txtNome.requestFocus();
+        txtCodigoFocusLost(null);
+    }
+    
     public vCadCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -62,10 +75,10 @@ public class vCadCliente extends javax.swing.JDialog {
         if (!Registro.get(0).equals("-1")){
             txtCodigo.setText(Registro.get(0));
             txtNome.setText(Registro.get(1));
-            txtTelefone.setText(Registro.get(3));
-            txtEmail.setText(Registro.get(4));
-            txtEndereco.setText(Registro.get(5));
-            cmbCurso.setSelectedItem(Registro.get(6));
+            txtTelefone.setText(Registro.get(2));
+            txtEmail.setText(Registro.get(3));
+            txtEndereco.setText(Registro.get(4));
+            cmbCurso.setSelectedItem(Registro.get(5));
         }
     }
     
@@ -441,7 +454,7 @@ public class vCadCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new vPesqCliente(null, true).setVisible(true);
+        new vPesqCliente(null, true, this).setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
