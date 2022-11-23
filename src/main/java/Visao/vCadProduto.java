@@ -493,7 +493,7 @@ public class vCadProduto extends javax.swing.JDialog {
         Registro.add(txtTipo.getText());
         Registro.add(txtDescricao.getText());
         Registro.add(txtPreco.getText());
-        Registro.add(String.valueOf(spinEstoque.getComponentCount()));
+        Registro.add(String.valueOf(spinEstoque.getValue()));
         
         int codigoNovo = 0;
         ctrlProduto ControllerProduto = new ctrlProduto();

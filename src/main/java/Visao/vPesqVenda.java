@@ -36,8 +36,7 @@ public class vPesqVenda extends javax.swing.JDialog {
         ColunasTabela.add("CÓDIGO");
         ColunasTabela.add("CÓD. CLIENTE");
         ColunasTabela.add("CÓD. VENDEDOR");
-        ColunasTabela.add("DATA DA VENDA");
-        ColunasTabela.add("DATA DO PAGAMENTO");
+        ColunasTabela.add("VALOR");
         ColunasTabela.add("MÉTODO");
                 
         return ColunasTabela;

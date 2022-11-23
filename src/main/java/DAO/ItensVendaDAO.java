@@ -222,7 +222,7 @@ public class ItensVendaDAO {
         Statement consulta = null;
         ResultSet resultado = null;
 
-        String sql = "select ID from itens_venda where ID = " + iCod;
+        String sql = "select * from itens_venda where ID = " + iCod;
         ItensVenda itemTemp = new ItensVenda();
 
         try {
@@ -230,7 +230,6 @@ public class ItensVendaDAO {
             resultado = consulta.executeQuery(sql);
 
             while (resultado.next()) {
-                //ItensVenda itemTemp = new ItensVenda();
                 itemTemp.setCodigo(resultado.getInt("ID"));
                 itemTemp.setCodigoVenda(resultado.getInt("ID_VENDA"));
                 itemTemp.setCodigoProduto(resultado.getInt("ID_PRODUTO"));
@@ -238,7 +237,6 @@ public class ItensVendaDAO {
                 itemTemp.setValorTotal(resultado.getDouble("VALOR_TOTAL"));
                 itemTemp.setValorUnitario(resultado.getDouble("VALOR_UNITARIO"));
                 itemTemp.setNomeProduto(resultado.getString("NOME_PRODUTO"));
-                //itens.add(itemTemp);
             }
 
         } catch (SQLException e) {
@@ -249,7 +247,7 @@ public class ItensVendaDAO {
                 resultado.close();
                 conexao.close();
             } catch (Throwable e) {
-                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexao:\n" + e);
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão:\n" + e);
             }
         }
         return itemTemp;
@@ -285,5 +283,34 @@ public class ItensVendaDAO {
             }
         }
         return retorno;
+    }
+    
+    public static int Count(){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        Statement consulta = null;
+        ResultSet resultado = null;
+        int count = -1;
+        
+        String sql = "select count(*) from itens_venda";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+
+            if(resultado.next() && resultado != null)
+                count = resultado.getInt(1);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao retornar quantidade de registros: " + e);
+        } finally {
+            try {
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            } catch (Throwable e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão: " + e);
+            }
+        }
+        return count;
     }
 }

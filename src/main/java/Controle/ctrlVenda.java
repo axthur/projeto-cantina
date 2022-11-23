@@ -144,9 +144,8 @@ public class ctrlVenda {
     public DefaultTableModel PesquisaObjeto(ArrayList<String> Parametros, DefaultTableModel ModeloTabela) {
         String Campo = Parametros.get(0);
         String Valor = Parametros.get(1);
-        boolean EmQualquerParte = Parametros.get(2).equals("S");
 
-        ArrayList<Venda> Cidades = this.objPedido.RecuperaObjetos(Campo, Valor, EmQualquerParte);
+        ArrayList<Venda> Cidades = this.objPedido.RecuperaObjetos(Campo, Valor);
 
         Vector<String> vetVetor;
         Venda objPedidoBuffer;
@@ -158,8 +157,6 @@ public class ctrlVenda {
             vetVetor.addElement(String.valueOf(objPedidoBuffer.getIdCliente()));
             vetVetor.addElement(String.valueOf(objPedidoBuffer.getIdVendedor()));
             vetVetor.addElement(String.valueOf(objPedidoBuffer.getValor()));
-            vetVetor.addElement(String.valueOf(objPedidoBuffer.getDataCompra()));
-            vetVetor.addElement(String.valueOf(objPedidoBuffer.getDataPagamento()));
             vetVetor.addElement(String.valueOf(objPedidoBuffer.getMetodoDePagamento()));
 
             ModeloTabela.addRow(vetVetor);

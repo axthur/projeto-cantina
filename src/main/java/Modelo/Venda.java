@@ -109,13 +109,21 @@ public class Venda {
         RecuperaObjeto(CodigoNav);
     }
     
-    public ArrayList<Venda> RecuperaObjetos(String pCampo, String pValor, boolean pTodaParte){
-        String NomeCampo = "";
-        if (pCampo.equals("0"))
-            NomeCampo = "venda.ID";
-        else
-            NomeCampo = "cliente.ID";
+    public ArrayList<Venda> RecuperaObjetos(String pCampo, String pValor){
+        String nomeCampo = "";
         
-        return VendaDAO.PesquisaObjeto(NomeCampo, pValor, pTodaParte);
+        if(pCampo.equalsIgnoreCase("Código")){
+            nomeCampo = "ID";
+        }else if(pCampo.equalsIgnoreCase("Código do Cliente")){
+            nomeCampo = "ID_CLIENTE";
+        }else if(pCampo.equalsIgnoreCase("Código do Vendedor")){
+            nomeCampo = "ID_VENDEDOR";
+        }else if(pCampo.equalsIgnoreCase("Valor")){
+            nomeCampo = "VALOR";
+        }else if(pCampo.equalsIgnoreCase("Método de Pagamento")){
+            nomeCampo = "METODO_PAGAMENTO";
+        }
+        
+        return VendaDAO.RecuperaObjetos(nomeCampo, pValor);
     }
 }

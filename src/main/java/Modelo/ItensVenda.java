@@ -98,6 +98,10 @@ public class ItensVenda {
     public static ItensVenda RecuperaObjetoParaExcluir(int iCod) {
         return ItensVendaDAO.RecuperaObjetoParaExcluir(iCod);
     }
+    
+    public static int Count() {
+        return ItensVendaDAO.Count();
+    }
 
     public static boolean RecuperaObjeto(int iCod) {
         return ItensVendaDAO.RecuperaObjeto(iCod);

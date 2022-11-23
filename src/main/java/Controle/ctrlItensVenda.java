@@ -49,7 +49,12 @@ public class ctrlItensVenda {
     }*/
 
     public ItensVenda RecuperaObjetoParaExcluir(int Codigo) {
-        return this.objItensVenda.RecuperaObjetoParaExcluir(Codigo);
+        return ItensVenda.RecuperaObjetoParaExcluir(Codigo);
+        //return ConverterObjetoParaArray();
+    }
+    
+     public int Count() {
+        return ItensVenda.Count();
         //return ConverterObjetoParaArray();
     }
 

@@ -82,8 +82,6 @@ public class vCadVenda extends javax.swing.JDialog {
         txtDataPagamento.setText("");
         labTotal.setText("0");
         txtMetodoDePagamento.setText("");
-        //objTabela.setRowCount(0);
-        //tblItens.setModel(objTabela);
     }
 
     private void setStatusRegistro(int status) {
@@ -108,9 +106,10 @@ public class vCadVenda extends javax.swing.JDialog {
     }
     
     private void PreencherTelaComItensRecuperados(ArrayList<ItensVenda> Itens){
-        if(!Itens.get(0).equals("-1")){
+        if(!Itens.isEmpty()){
             for(int i = 0; i < Itens.size(); i++){
                 Vector<String> vetVetor = new Vector<String>();
+                vetVetor.addElement("");
                 vetVetor.addElement(String.valueOf(Itens.get(i).getCodigoProduto()));
                 vetVetor.addElement(Itens.get(i).getNomeProduto());
                 vetVetor.addElement(String.valueOf(Itens.get(i).getQuantidade()));
@@ -124,24 +123,41 @@ public class vCadVenda extends javax.swing.JDialog {
 
     private void navegarEntreRegistros(int opcao) {
         int codigoAtual = Integer.parseInt(txtCodigo.getText());
+        if(codigoAtual == 0)
+            codigoAtual++;
 
+        // Armazenar informações da Venda em um vetor de string
         ctrlVenda controllerVenda = new ctrlVenda();        
         ArrayList<String> Registro = controllerVenda.RecuperaObjetoNavegacao(opcao, codigoAtual);
         
-        /*
+        // Armazenar todos os Itens Venda da Venda em um vetor
         ctrlItensVenda controllerItens = new ctrlItensVenda();
         ArrayList<ItensVenda> Itens = new ArrayList<>();
         
-        int idVenda = 1;
-        while(controllerItens.RecuperaObjetoParaExcluir(idVenda).getCodigoVenda()
-                        == Integer.parseInt(txtCodigo.getText())){
-            Itens.add(controllerItens.RecuperaObjetoParaExcluir(idVenda));
+        // Verificar em todos os registros de Itens Venda
+        for(int idItens = 1; idItens <= controllerItens.Count(); idItens++){
+            // Armazenar o objeto referente ao ID 
+            ItensVenda objetoRecuperado = controllerItens.RecuperaObjetoParaExcluir(idItens);
+            
+            // Se o código da venda do Itens Venda do ID recebido pela variável idItens 
+            if(objetoRecuperado.getCodigoVenda()
+            // for igual ao ID da Venda
+                        == codigoAtual){
+                // Adiciona o Itens Venda no vetor
+                Itens.add(objetoRecuperado);
+            }
         }
-
-        PreencherTelaComItensRecuperados(Itens);*/
+        // Limpar registros de vendas anteriores
+        objTabela.setRowCount(0);
+        tblItens.setModel(objTabela);
+        
+        // Preencher tabela com o vetor ItensVenda
+        PreencherTelaComItensRecuperados(Itens);
+        
+        // Preencher tela com o vetor de informações da Venda
         PreencherTelaComObjetoRecuperado(Registro);
+        
         txtCodigoCliente.requestFocus();
-
         setStatusRegistro(ABERTO);
     }
 
@@ -696,6 +712,8 @@ public class vCadVenda extends javax.swing.JDialog {
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
         setStatusRegistro(INSERCAO);
+        objTabela.setRowCount(0);
+        tblItens.setModel(objTabela);
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
