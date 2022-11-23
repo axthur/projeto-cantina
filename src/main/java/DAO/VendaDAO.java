@@ -291,4 +291,69 @@ public class VendaDAO {
         }
         return vendas;
     }
+    public static Venda RecuperaObjetoParaExcluir(int iCod) {
+        Connection conexao = FabricaConexao.getConnection();
+
+        Statement consulta = null;
+        ResultSet resultado = null;
+
+        String sql = "select * from venda where ID = " + iCod;
+        Venda itemTemp = new Venda();
+
+        try {
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+
+            while (resultado.next()) {
+                itemTemp.setCodigo(resultado.getInt("ID"));
+                itemTemp.setIdCliente(resultado.getInt("ID_CLIENTE"));
+                itemTemp.setIdVendedor(resultado.getInt("ID_VENDEDOR"));
+                itemTemp.setValor(resultado.getInt("VALOR"));
+                itemTemp.setDataCompra(resultado.getString("DATA_COMPRA"));
+                itemTemp.setDataPagamento(resultado.getString("DATA_PAGAMENTO"));
+                itemTemp.setMetodoDePagamento(resultado.getString("METODO_PAGAMENTO"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar venda a excluir:\n" + e);
+        } finally {
+            try {
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            } catch (Throwable e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão:\n" + e);
+            }
+        }
+        return itemTemp;
+    }
+    
+    public static int Count(){
+        Connection conexao = FabricaConexao.getConnection();
+        
+        Statement consulta = null;
+        ResultSet resultado = null;
+        int count = -1;
+        
+        String sql = "select count(*) from venda";
+        
+        try{
+            consulta = conexao.createStatement();
+            resultado = consulta.executeQuery(sql);
+
+            if(resultado.next() && resultado != null)
+                count = resultado.getInt(1);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao retornar quantidade de vendas: " + e);
+        } finally {
+            try {
+                consulta.close();
+                resultado.close();
+                conexao.close();
+            } catch (Throwable e) {
+                JOptionPane.showMessageDialog(null, "Erro ao encerrar conexão: " + e);
+            }
+        }
+        return count;
+    }
 }

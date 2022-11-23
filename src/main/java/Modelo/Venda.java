@@ -126,4 +126,12 @@ public class Venda {
         
         return VendaDAO.RecuperaObjetos(nomeCampo, pValor);
     }
+    
+    public static Venda RecuperaObjetoParaExcluir(int iCod) {
+        return VendaDAO.RecuperaObjetoParaExcluir(iCod);
+    }
+    
+    public static int Count() {
+        return VendaDAO.Count();
+    }
 }

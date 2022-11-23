@@ -1,5 +1,9 @@
 package Visao;
 import Controle.ctrlCliente;
+import Controle.ctrlItensVenda;
+import Controle.ctrlVenda;
+import Modelo.ItensVenda;
+import Modelo.Venda;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -551,15 +555,41 @@ public class vCadCliente extends javax.swing.JDialog {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (statusRegistro == ABERTO){
+            int codigoAtual = Integer.parseInt(txtCodigo.getText());
+            /*if(codigoAtual == 0)
+                codigoAtual++;*/
             
             int podeExcluir = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?", "Meu Programa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
+            /*ctrlVenda controllerVendas = new ctrlVenda();
+            ArrayList<Venda> Vendas = new ArrayList<>();*/
+                       
             if (podeExcluir == 0){
                 ctrlCliente controllerCliente = new ctrlCliente();
-                controllerCliente.Excluir(Integer.parseInt(txtCodigo.getText()));
+                controllerCliente.Excluir(codigoAtual);
+                /*for(int idVendas = 1; idVendas <= controllerVendas.Count(); idVendas++){
+                    // Armazenar o objeto referente ao ID 
+                    Venda vendaRecuperada = controllerVendas.RecuperaObjetoParaExcluir(idVendas);
+
+                    // Se o código do cliente da venda do ID recebido pela variável idVendas 
+                    if(vendaRecuperada.getIdCliente() == codigoAtual){
+                        // Adiciona a Venda no vetor
+                        Vendas.add(vendaRecuperada);
+                        
+                        ctrlItensVenda controllerItens = new ctrlItensVenda();
+                        for(int idItens = 1; idItens <= controllerItens.Count(); idVendas++){
+                            ItensVenda itensRecuperados = controllerItens.RecuperaObjetoParaExcluir(idItens);
+                            
+                            if(itensRecuperados.getCodigoVenda() == idVendas){
+                                controllerItens.Excluir(idItens);
+                            }
+                        }
+                    }
+                    
+                    controllerVendas.Excluir(idVendas);*/
+                }
+               
                 setStatusRegistro(FECHADO);
             }
-        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusLost

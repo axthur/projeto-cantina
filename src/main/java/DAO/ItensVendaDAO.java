@@ -218,7 +218,6 @@ public class ItensVendaDAO {
     public static ItensVenda RecuperaObjetoParaExcluir(int iCod) {
         Connection conexao = FabricaConexao.getConnection();
 
-        //ArrayList<ItensVenda> itens = new ArrayList<ItensVenda>();
         Statement consulta = null;
         ResultSet resultado = null;
 

@@ -164,4 +164,12 @@ public class ctrlVenda {
 
         return ModeloTabela;
     }
+    
+    public Venda RecuperaObjetoParaExcluir(int Codigo) {
+        return Venda.RecuperaObjetoParaExcluir(Codigo);
+    }
+    
+     public int Count() {
+        return Venda.Count();
+    }
 }

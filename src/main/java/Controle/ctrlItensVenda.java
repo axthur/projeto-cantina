@@ -50,12 +50,10 @@ public class ctrlItensVenda {
 
     public ItensVenda RecuperaObjetoParaExcluir(int Codigo) {
         return ItensVenda.RecuperaObjetoParaExcluir(Codigo);
-        //return ConverterObjetoParaArray();
     }
     
      public int Count() {
         return ItensVenda.Count();
-        //return ConverterObjetoParaArray();
     }
 
     public void Atualizar(ArrayList<String> pLista) {

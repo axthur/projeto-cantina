@@ -134,6 +134,13 @@ public class vCadVenda extends javax.swing.JDialog {
         ctrlItensVenda controllerItens = new ctrlItensVenda();
         ArrayList<ItensVenda> Itens = new ArrayList<>();
         
+        int x;
+        if(!Registro.isEmpty()){
+            x = Integer.parseInt(Registro.get(0));
+        } else {
+            x = codigoAtual;
+        }
+        
         // Verificar em todos os registros de Itens Venda
         for(int idItens = 1; idItens <= controllerItens.Count(); idItens++){
             // Armazenar o objeto referente ao ID 
@@ -142,7 +149,7 @@ public class vCadVenda extends javax.swing.JDialog {
             // Se o código da venda do Itens Venda do ID recebido pela variável idItens 
             if(objetoRecuperado.getCodigoVenda()
             // for igual ao ID da Venda
-                        == codigoAtual){
+                        == x){
                 // Adiciona o Itens Venda no vetor
                 Itens.add(objetoRecuperado);
             }
