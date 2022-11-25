@@ -1,15 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Visao;
-
-/**
- *
- * @author lissa
- */
 public class vPrincipal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form vPrincipal
      */
@@ -32,7 +23,6 @@ public class vPrincipal extends javax.swing.JFrame {
         jColorChooser1 = new javax.swing.JColorChooser();
         jColorChooser2 = new javax.swing.JColorChooser();
         jFileChooser1 = new javax.swing.JFileChooser();
-        imgLogo = new javax.swing.JLabel();
         menuPrincipal = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         itemVendedor = new javax.swing.JMenuItem();
@@ -48,8 +38,6 @@ public class vPrincipal extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Visao/logoCantina.png"))); // NOI18N
 
         menuPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         menuPrincipal.setForeground(new java.awt.Color(51, 102, 0));
@@ -106,14 +94,11 @@ public class vPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addGap(0, 477, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
 
         pack();
@@ -175,7 +160,6 @@ public class vPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imgLogo;
     private javax.swing.JMenuItem itemCliente;
     private javax.swing.JMenuItem itemProduto;
     private javax.swing.JMenuItem itemVenda;
